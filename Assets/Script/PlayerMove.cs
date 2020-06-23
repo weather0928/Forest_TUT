@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
                 }
                 else
                 {
-                    transform.Translate(Vector3.right * walkSpeed * Time.deltaTime); transform.Rotate(new Vector3(0, rotateSpeed, 0) * Time.deltaTime);
+                    transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
                 }
             }
             if (Input.GetKey(KeyCode.A))
