@@ -14,9 +14,10 @@ public class EnemyChaser : MonoBehaviour
 
     //ターゲット（プレイヤー）を追うために使う変数
     [SerializeField] GameObject target;
-    private bool inArea = false;
+    [System.NonSerialized]public static bool inArea = false;
     [SerializeField] float chaspeed = 0.05f;
     [SerializeField] Color origColor;
+    [System.NonSerialized]public static bool chaseSwitchFlag = false;
 
     //プレイヤーが隠れたときや音が鳴らなくなった時に使う変数
     [SerializeField] float stopTime;
@@ -36,12 +37,12 @@ public class EnemyChaser : MonoBehaviour
             GotoNextPoint();
         }
 
-        if (target.activeInHierarchy == false) //ターゲットがいなくなったときの処理（制作が進んだらはゲームオーバー時に代わる）
+        if (target.activeInHierarchy == false) //ターゲットがいなくなったときの処理（制作が進んだらゲームオーバー時に代わる）
         {
             GetComponent<Renderer>().material.color = origColor;
         }
 
-        if (inArea == true && target.activeInHierarchy == true)　//エリア内にいて、かつ「生存」状態の時
+        if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false)　//エリア内にいて、かつ「生存」状態の時
         {
             if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false)
             {
@@ -57,11 +58,15 @@ public class EnemyChaser : MonoBehaviour
                 if (second >= stopTime)
                 {
                     second = 0f;
-                    GetComponent<Renderer>().material.color = origColor;
-                    GotoNextPoint();
-                    inArea = false;
+                    chaseSwitchFlag = true;
                 }
             }
+        }
+        else if(inArea == true && chaseSwitchFlag == true)
+        {
+            inArea = false;
+            GetComponent<Renderer>().material.color = origColor;
+            GotoNextPoint();
         }
 
         if(SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
@@ -99,26 +104,6 @@ public class EnemyChaser : MonoBehaviour
             SoundJudge.soundJudge = false;
             GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
-        }
-    }
-
-    void OnTriggerStay(Collider other) //ターゲット（プレイヤー）索敵処理
-    {
-        if (other.gameObject.tag == "Player" && Physics.Linecast(transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
-        {
-            inArea = true;
-            target = other.gameObject;
-            GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-            EneChasing();
-        }
-    }
-
-    void OnTriggerExit(Collider other) //索敵範囲からターゲットが出たときにする処理
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            inArea = false;
-            GetComponent<Renderer>().material.color = origColor;
         }
     }
 
