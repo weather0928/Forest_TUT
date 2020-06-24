@@ -86,11 +86,19 @@ public class EnemyChaser : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other) //プレイヤーに触れたときの処理（後々はゲームオーバー処理に代わる）
+    private void OnCollisionEnter(Collision other) //プレイヤーやアイテムに触れたときの処理（後々はゲームオーバー処理などに代わる）
     {
         if(other.gameObject.tag == "Player")
         {
             other.gameObject.SetActive(false);
+        }
+        if(other.gameObject.tag == "SoundItem")
+        {
+            Destroy(other.gameObject);
+            SoundJudge.soundFlag = false;
+            SoundJudge.soundJudge = false;
+            GetComponent<Renderer>().material.color = origColor;
+            GotoNextPoint();
         }
     }
 
