@@ -12,12 +12,12 @@ public class SoundJudge : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "SoundItem")
         {
             if (soundFlag == true)
             {
                 soundJudge = true;
-                //Debug.Log(soundPoint);
+                Debug.Log(soundFlag);
             }
         }
     }
