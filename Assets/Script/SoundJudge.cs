@@ -17,7 +17,6 @@ public class SoundJudge : MonoBehaviour
             if (soundFlag == true)
             {
                 soundJudge = true;
-                Debug.Log(soundFlag);
             }
         }
     }

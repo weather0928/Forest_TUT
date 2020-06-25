@@ -42,6 +42,25 @@ public class EnemyChaser : MonoBehaviour
             GetComponent<Renderer>().material.color = origColor;
         }
 
+        if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
+        {
+            agent.destination = SoundJudge.soundPoint;
+            GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+            Debug.Log(inArea);
+
+            if (SoundJudge.soundFlag == false)
+            {
+                second += Time.deltaTime;
+                if (second >= stopTime)
+                {
+                    SoundJudge.soundJudge = false;
+                    second = 0f;
+                    GetComponent<Renderer>().material.color = origColor;
+                    GotoNextPoint();
+                }
+            }
+        }
+
         if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false)　//エリア内にいて、かつ「生存」状態の時
         {
             if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false)
@@ -65,29 +84,9 @@ public class EnemyChaser : MonoBehaviour
         else if(inArea == true && chaseSwitchFlag == true)
         {
             inArea = false;
+            chaseSwitchFlag = false;
             GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
-        }
-
-        if(SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
-        {
-            agent.destination = SoundJudge.soundPoint;
-            if(inArea == false)
-            {
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-            }
-            
-            if (SoundJudge.soundFlag == false)
-            {
-                second += Time.deltaTime;
-                if(second >= stopTime)
-                {
-                    SoundJudge.soundJudge = false;
-                    second = 0f;
-                    GetComponent<Renderer>().material.color = origColor;
-                    GotoNextPoint();
-                }
-            }
         }
     }
 
