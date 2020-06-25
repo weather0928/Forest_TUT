@@ -364,6 +364,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaleItemSample
       objectReference: {fileID: 0}
+    - target: {fileID: 1236662602618464746, guid: 2e6b9a3bb700fbf48b06195f133435ea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5390188386624729831, guid: 2e6b9a3bb700fbf48b06195f133435ea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -434,7 +439,7 @@ GameObject:
   - component: {fileID: 272288790}
   - component: {fileID: 272288789}
   - component: {fileID: 272288788}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +546,7 @@ GameObject:
   - component: {fileID: 332573436}
   - component: {fileID: 332573435}
   - component: {fileID: 332573434}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1930,7 +1935,7 @@ GameObject:
   - component: {fileID: 1759125676}
   - component: {fileID: 1759125675}
   - component: {fileID: 1759125674}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2188,7 +2193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810981205}
   - component: {fileID: 1810981204}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
