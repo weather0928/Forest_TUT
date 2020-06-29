@@ -18,10 +18,17 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] float chaspeed = 0.05f;
     [SerializeField] Color origColor;
     [System.NonSerialized]public static bool chaseSwitchFlag = false;
+    [SerializeField]private float chaseStopTime;
+    private float chaseSecond = 0f;
 
-    //プレイヤーが隠れたときや音が鳴らなくなった時に使う変数
-    [SerializeField] float stopTime;
-    private float second = 0f;
+    //音が鳴らなくなった時に使う変数
+    [SerializeField] float soundStopTime;
+    private float soundSecond = 0f;
+
+    //罠にかかった時に使う変数など
+    private float staleStopTime;
+    private float staleSecond = 0f;
+    private bool staleFlag = false;
 
     void Start()
     {
@@ -68,16 +75,16 @@ public class EnemyChaser : MonoBehaviour
                 agent.destination = target.transform.position;
                 EneChasing();
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                second = 0f;
+                chaseSecond = 0f;
             }
             else if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
             {
-                second += Time.deltaTime;
+                chaseSecond += Time.deltaTime;
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-                if (second >= stopTime)
+                if (chaseSecond >= chaseStopTime)
                 {
-                    second = 0f;
                     chaseSwitchFlag = true;
+                    chaseSecond = 0f;
                 }
             }
         }
@@ -87,6 +94,7 @@ public class EnemyChaser : MonoBehaviour
             chaseSwitchFlag = false;
             GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
+            chaseSwitchFlag = false;
         }
     }
 
@@ -103,6 +111,13 @@ public class EnemyChaser : MonoBehaviour
             SoundJudge.soundJudge = false;
             GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
+        }
+        if(other.gameObject.tag == "StaleItem")
+        {
+            GetComponent<NavMeshAgent>().isStopped = true; 
+            staleStopTime = other.gameObject.GetComponent<EnemyStaleItem>().stopTime;
+            staleFlag = true;
+            Destroy(other.gameObject);
         }
     }
 

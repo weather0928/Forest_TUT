@@ -9,7 +9,8 @@ public class PlayerSearchArea : MonoBehaviour
 
     void OnTriggerStay(Collider other) //ターゲット（プレイヤー）索敵処理
     {
-        if (other.gameObject.tag == "Player" && Physics.Linecast(Enemy.transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
+        if (other.gameObject.tag == "Player" 
+            && Physics.Linecast(Enemy.transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
         {
             EnemyChaser.inArea = true;
             Debug.Log("9");
