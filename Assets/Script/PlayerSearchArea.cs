@@ -13,6 +13,7 @@ public class PlayerSearchArea : MonoBehaviour
             && Physics.Linecast(Enemy.transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
         {
             EnemyChaser.inArea = true;
+            Debug.Log("9");
         }
     }
 
@@ -21,6 +22,7 @@ public class PlayerSearchArea : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             EnemyChaser.chaseSwitchFlag = true;
+            Debug.Log("8");
         }
     }
 }
