@@ -57,11 +57,11 @@ public class EnemyChaser : MonoBehaviour
 
             if (SoundJudge.soundFlag == false)
             {
-                second += Time.deltaTime;
-                if (second >= stopTime)
+                soundSecond += Time.deltaTime;
+                if (soundSecond >= soundStopTime)
                 {
                     SoundJudge.soundJudge = false;
-                    second = 0f;
+                    soundSecond = 0f;
                     GetComponent<Renderer>().material.color = origColor;
                     GotoNextPoint();
                 }
