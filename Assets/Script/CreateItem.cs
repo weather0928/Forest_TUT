@@ -9,6 +9,7 @@ public class CreateItem : MonoBehaviour
     [SerializeField] private ItemManeger itemManeger;
     [SerializeField] private float stopTime;
     [SerializeField] private Color origColor;
+    [SerializeField] private GameObject player;
     private float seconds;
     //アイテム作成の情報を入れる
     [System.Serializable]
@@ -42,18 +43,13 @@ public class CreateItem : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Q) && conditionFlag.All(i => i == true) && PlayerMove.moveFlag == true)
-        {
-            craftFlag = true;
-        }
-
         if(craftFlag == true)
         {
             SoundJudge.soundFlag = true;
             SoundJudge.soundPoint = this.gameObject.transform.position;
             PlayerMove.moveFlag = false;
             seconds += Time.deltaTime;
-            GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+            player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
             Debug.Log(seconds);
             if (seconds >= stopTime)
             {
@@ -68,10 +64,18 @@ public class CreateItem : MonoBehaviour
                 seconds = 0.0f;
                 PlayerMove.moveFlag = true;
                 Debug.Log(itemManeger.numOfItem[itemDate]);
-                GetComponent<Renderer>().material.color = origColor;
+                player.GetComponent<Renderer>().material.color = origColor;
             }
         }
         
+    }
+
+    public void OnClick()
+    {
+        if (conditionFlag.All(i => i == true) && PlayerMove.moveFlag == true)
+        {
+            craftFlag = true;
+        }
     }
  }
 
