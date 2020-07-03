@@ -13,21 +13,24 @@ public class CameraControll : MonoBehaviour
 
     void Update()
     {
-        //Cameraの角度にマウスからとった値を入れる
-        transform.eulerAngles += new Vector3(Input.GetAxis("Mouse Y") * rotate_speed,0, 0);
-
-        //X軸の角度
-        float angleX = transform.eulerAngles.x;
-        //X軸の値を180度超えたら360引くことで制限しやすくする
-        if (angleX >= 180)
+        if(PlayerMove.moveFlag == true)
         {
-            angleX = angleX - 360;
+            //Cameraの角度にマウスからとった値を入れる
+            transform.eulerAngles += new Vector3(Input.GetAxis("Mouse Y") * rotate_speed, 0, 0);
+
+            //X軸の角度
+            float angleX = transform.eulerAngles.x;
+            //X軸の値を180度超えたら360引くことで制限しやすくする
+            if (angleX >= 180)
+            {
+                angleX = angleX - 360;
+            }
+            //Mathf.Clamp(値、最小値、最大値）でX軸の値を制限する
+            transform.eulerAngles = new Vector3(
+                Mathf.Clamp(angleX, angleDown, angleUp),
+                transform.eulerAngles.y,
+                transform.eulerAngles.z
+            );
         }
-        //Mathf.Clamp(値、最小値、最大値）でX軸の値を制限する
-        transform.eulerAngles = new Vector3(
-            Mathf.Clamp(angleX, angleDown, angleUp),
-            transform.eulerAngles.y,
-            transform.eulerAngles.z
-        );
     }
 }

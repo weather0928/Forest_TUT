@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         moveFlag = true;
+        CreateItemUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,6 +65,7 @@ public class PlayerMove : MonoBehaviour
         if(Input.GetKeyDown("q"))
         {
             CreateItemUI.SetActive(!CreateItemUI.activeSelf);
+            moveFlag = !moveFlag;
         }
     }
 }
