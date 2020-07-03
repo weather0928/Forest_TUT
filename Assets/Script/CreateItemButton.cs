@@ -38,13 +38,12 @@ public class CreateItemButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (conditionFlag.All(i => i == true))
+        if (conditionFlag.All(i => i == true) && CreateItem.craftFlag == false)
         {
             CreateItem.craftFlag = true;
             for (int i = 0; i < craftCost.Count; i++)
             {
                 itemManeger.numOfItem[craftCost[i].MaterialItem] -= craftCost[i].amount;
-                //conditionFlag[i] = false;
             }
         }
     }
