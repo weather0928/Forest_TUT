@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float rotateSpeed = 90f;
     //Cameraが回転するスピード
     [SerializeField] float rotate_speed = 3;
+    [SerializeField] GameObject CreateItemUI;
     [System.NonSerialized]public static bool moveFlag;
 
     public bool camera2Flag = false;
@@ -16,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         moveFlag = true;
+        CreateItemUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,6 +60,12 @@ public class PlayerMove : MonoBehaviour
             {
                 transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
             }
+        }
+
+        if(Input.GetKeyDown("q"))
+        {
+            CreateItemUI.SetActive(!CreateItemUI.activeSelf);
+            moveFlag = !moveFlag;
         }
     }
 }
