@@ -10,11 +10,6 @@ public class ThrowItem : MonoBehaviour
     [SerializeField] float throwPower = 10f;
     private Vector3 throwPosition;
 
-    private void Start()
-    {
-        itemManeger.numOfItem[throwItemData] = 1000;//テスト用
-    }
-
     // Update is called once per frame
     void Update()
     {
