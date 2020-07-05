@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f3eadc9e4f3844448b2cdf8b81d33fe, type: 3}
-  m_Name: LadderMaterial
+  m_Name: Hammer
   m_EditorClassIdentifier: 
-  itemName: "\u30E9\u30C0\u30FC\u7D20\u6750\uFF08\u30C6\u30B9\u30C8\u7528\uFF09"
+  itemName: "\u30CF\u30F3\u30DE\u30FC"

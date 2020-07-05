@@ -18,21 +18,24 @@ public class ThrowItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(PlayerMove.moveFlag == true)
         {
-            if (itemManeger.numOfItem[throwItemData] >= 1)
+            if (Input.GetMouseButtonDown(0))
             {
-                throwPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                if (itemManeger.numOfItem[throwItemData] >= 1)
+                {
+                    throwPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-                GameObject createThrowItem = Instantiate(throwItem, throwPosition,transform.rotation);
-                createThrowItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
+                    GameObject createThrowItem = Instantiate(throwItem, throwPosition, transform.rotation);
+                    createThrowItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
 
-                itemManeger.numOfItem[throwItemData] -= 1;
-            }
-            else
-            {
-                //通常は何もできない（下はテスト用）
-                Debug.Log("投げるもんなんてねぇんじゃボケェ");
+                    itemManeger.numOfItem[throwItemData] -= 1;
+                }
+                else
+                {
+                    //通常は何もできない（下はテスト用）
+                    Debug.Log("投げるもんなんてねぇんじゃボケェ");
+                }
             }
         }
     }
