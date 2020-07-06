@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class UseItemUI : MonoBehaviour
 {
@@ -10,54 +11,60 @@ public class UseItemUI : MonoBehaviour
     //アイテムが何もないときに表記するものを入れる
     [SerializeField] GameObject nonItemUI;
 
-    //はしごの情報などを入れる
-    [SerializeField] GameObject radderUI;
-    [SerializeField] Item radderItemDate;
-    private bool radderItemFlag;
+    //各種アイテムの情報やUIを入れる
+    [System.Serializable]
+    public struct Date
+    {
+        public GameObject itemUI;
+        public Item itemDate;
+    }
+    [SerializeField] private List<Date> useItemDate = new List<Date>();
+    private bool[] itemFlag;
+    private int itemNumber;
 
-    //鈴の情報を入れる
-    [SerializeField] GameObject bellUI;
-    [SerializeField] Item bellItemDate;
-    private bool bellItemFlag;
-
-    //足止めアイテムの情報を入れる
-    [SerializeField] GameObject staleUI;
-    [SerializeField] Item staleItemDate;
-    private bool staleItemFlag;
+    private void Start()
+    {
+        itemFlag = new bool[useItemDate.Count];
+    }
 
     // Update is called once per frame
     void Update()
     {
-        radderItemFlag = ItemCheck(radderItemDate);
-        bellItemFlag = ItemCheck(bellItemDate);
-        staleItemFlag = ItemCheck(staleItemDate);
-        if(nonItemUI.activeSelf == true)
+        for(int i = 0;i < itemFlag.Length;i++)
         {
-            if(radderItemFlag == true)
+            itemFlag[i] = ItemCheck(useItemDate[i].itemDate);
+            if(itemFlag[i] == true && nonItemUI.activeSelf == true)
             {
-                radderUI.SetActive(true);
+                useItemDate[i].itemUI.SetActive(true);
+                itemNumber = i;
                 nonItemUI.SetActive(false);
             }
-            else if(bellItemFlag == true)
+        }
+
+        if(itemFlag.All(i => i == false))
+        {
+            for(int i = 0;i<itemFlag.Length;i++)
             {
-                bellUI.SetActive(true);
-                nonItemUI.SetActive(false);
+                useItemDate[i].itemUI.SetActive(false);
             }
-            else if(staleItemFlag == true)
+            nonItemUI.SetActive(true);
+        }
+
+        float val = Input.GetAxis("Mouse ScrollWheel");
+        if(nonItemUI.activeSelf == false)
+        {
+            if (val > 0.0f)
             {
-                staleUI.SetActive(true);
-                nonItemUI.SetActive(false);
+                UpSwitch();
             }
-            else
+            else if (val < 0.0f)
             {
-                radderUI.SetActive(false);
-                bellUI.SetActive(false);
-                staleUI.SetActive(false);
+                DownSwitch();
             }
         }
     }
 
-    bool ItemCheck(Item item)
+    private bool ItemCheck(Item item)
     {
         bool itemFlag;
         if (itemManeger.numOfItem[item] <= 0)
@@ -69,5 +76,109 @@ public class UseItemUI : MonoBehaviour
             itemFlag = true;
         }
         return itemFlag;
+    }
+
+    private void UpSwitch()
+    {
+        int oldItemNumber = itemNumber;
+        itemNumber++;
+        if(itemNumber < useItemDate.Count)
+        {
+            if (itemFlag[itemNumber] == true)
+            {
+                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                useItemDate[itemNumber].itemUI.SetActive(true);
+            }
+            else if (itemFlag[itemNumber] == false)
+            {
+                if (itemNumber + 1 < useItemDate.Count)
+                {
+                    if (itemFlag[itemNumber + 1] == true)
+                    {
+                        itemNumber++;
+                        useItemDate[oldItemNumber].itemUI.SetActive(false);
+                        useItemDate[itemNumber].itemUI.SetActive(true);
+                    }
+                    else if(itemFlag[itemNumber + 1] == false)
+                    {
+                        for (int i = 0; i < itemFlag.Length; i++)
+                        {
+                            if (itemFlag[i] == true)
+                            {
+                                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                                useItemDate[i].itemUI.SetActive(true);
+                                itemNumber = i;
+                                i = itemFlag.Length;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if(itemNumber == useItemDate.Count)
+        {
+            for(int i = 0;i < itemFlag.Length;i++)
+            {
+                if(itemFlag[i] == true)
+                {
+                    useItemDate[oldItemNumber].itemUI.SetActive(false);
+                    useItemDate[i].itemUI.SetActive(true);
+                    itemNumber = i;
+                    i = itemFlag.Length;
+                }
+            }
+        }
+    }
+
+    private void DownSwitch()
+    {
+        int oldItemNumber = itemNumber;
+        itemNumber--;
+        if (itemNumber >= 0)
+        {
+            if (itemFlag[itemNumber] == true)
+            {
+                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                useItemDate[itemNumber].itemUI.SetActive(true);
+            }
+            else if (itemFlag[itemNumber] == false)
+            {
+                if (itemNumber - 1 >= 0)
+                {
+                    if (itemFlag[itemNumber - 1] == true)
+                    {
+                        itemNumber--;
+                        useItemDate[oldItemNumber].itemUI.SetActive(false);
+                        useItemDate[itemNumber].itemUI.SetActive(true);
+                    }
+                    else if (itemFlag[itemNumber - 1] == false)
+                    {
+                        for (int i = itemFlag.Length - 1; i >= -1; i++)
+                        {
+                            if (itemFlag[i] == true)
+                            {
+                                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                                useItemDate[i].itemUI.SetActive(true);
+                                itemNumber = i;
+                                i = -1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (itemNumber == -1)
+        {
+            for (int i = itemFlag.Length - 1; i >= -1; i++)
+            {
+                if (itemFlag[i] == true)
+                {
+                    useItemDate[oldItemNumber].itemUI.SetActive(false);
+                    useItemDate[i].itemUI.SetActive(true);
+                    itemNumber = i;
+                    i = -1;
+                }
+            }
+        }
     }
 }
