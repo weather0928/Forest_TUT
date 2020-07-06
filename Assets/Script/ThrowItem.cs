@@ -21,7 +21,7 @@ public class ThrowItem : MonoBehaviour
                 if (itemManeger.numOfItem[throwItemData] >= 1)
                 {
                     GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
-                    createThrowItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
+                    createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
 
                     itemManeger.numOfItem[throwItemData] -= 1;
                 }

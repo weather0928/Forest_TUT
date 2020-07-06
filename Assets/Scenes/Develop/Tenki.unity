@@ -118,6 +118,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4080118376950257686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &11273840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11273833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8063adcda7679814490c644baa4b654d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &15342136
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,12 +207,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15342136}
   m_CullTransparentMesh: 0
---- !u!1 &22396359 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6659859875197675870, guid: baf02f6aaead21e49a5b1949b50680e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4080118376950257686}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &99004087
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +490,6 @@ GameObject:
   - component: {fileID: 141690020}
   - component: {fileID: 141690019}
   - component: {fileID: 141690018}
-  - component: {fileID: 141690022}
   m_Layer: 0
   m_Name: Cube
   m_TagString: LadderSetOK
@@ -564,22 +569,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &141690022
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141690017}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &184305505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,12 +1570,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951603dc09c376e449d8ba6c0032fe48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladderCheck: {fileID: 22396359}
+  ladderCheck: {fileID: 11273833}
   itemManeger: {fileID: 534198875}
   ladderDate: {fileID: 11400000, guid: 30f1b8258abf45046ba897ffe08e9a75, type: 2}
   ladderObject: {fileID: 106002643337880101, guid: dc2a9ad078351ce43a5caa114ed50895,
     type: 3}
-  player: {fileID: 0}
+  player: {fileID: 11273833}
 --- !u!1 &828956325
 GameObject:
   m_ObjectHideFlags: 0
@@ -4336,7 +4325,7 @@ PrefabInstance:
     - target: {fileID: 4080118376939511398, guid: baf02f6aaead21e49a5b1949b50680e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -76.036
+      value: -81.22
       objectReference: {fileID: 0}
     - target: {fileID: 4080118376939511398, guid: baf02f6aaead21e49a5b1949b50680e6,
         type: 3}
@@ -4403,8 +4392,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5216387819111612063, guid: baf02f6aaead21e49a5b1949b50680e6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 22396363, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
+    - {fileID: 4655662617614516015, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
 --- !u!1001 &5965110713756841002
 PrefabInstance:

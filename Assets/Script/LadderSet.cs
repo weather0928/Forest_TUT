@@ -9,6 +9,7 @@ public class LadderSet : MonoBehaviour
     [SerializeField] Item ladderDate;
     [SerializeField] GameObject ladderObject;
     [SerializeField] GameObject player;
+    [System.NonSerialized] public static Vector3 ladderPosition;
 
     private void Update()
     {
@@ -16,8 +17,9 @@ public class LadderSet : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                Vector3 setPosition = new Vector3(ladderCheck.transform.position.x, ladderCheck.transform.position.y + (ladderObject.transform.localScale.y / 2), ladderCheck.transform.position.z);
-                GameObject createLadder = Instantiate(ladderObject, setPosition, transform.rotation);
+                Vector3 setPosition = ladderPosition;
+                setPosition.y += (ladderObject.transform.localScale.y / 2.0f) - 0.5f;
+                GameObject createLadder = Instantiate(ladderObject, setPosition, player.transform.rotation);
                 itemManeger.numOfItem[ladderDate] -= 1;
             }
         }

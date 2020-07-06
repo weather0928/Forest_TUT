@@ -6,18 +6,27 @@ public class LadderCheck : MonoBehaviour
 {
     [System.NonSerialized] public bool ladderCheckFlag;
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.gameObject.tag == "LadderSetOK")
-        {
-            ladderCheckFlag = true;
-        }
+        RayCheck();
     }
-    private void OnTriggerExit(Collider other)
+
+    private void RayCheck()
     {
-        if (other.gameObject.tag == "LadderSetOK")
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        int distance = 1;
+
+        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
+
+        if (Physics.Raycast(ray,out hit,distance))
         {
-            ladderCheckFlag = false;
+            if(hit.collider.tag == "LadderSetOK")
+            {
+                ladderCheckFlag = true;
+                LadderSet.ladderPosition = hit.point;
+            }
         }
     }
 }

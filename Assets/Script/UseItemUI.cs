@@ -43,6 +43,20 @@ public class UseItemUI : MonoBehaviour
             }
         }
 
+        if(itemFlag[itemNumber] == false)
+        {
+            useItemDate[itemNumber].itemUI.SetActive(false);
+            for (int i = 0; i < itemFlag.Length; i++)
+            {
+                if (itemFlag[i] == true)
+                {
+                    useItemDate[i].itemUI.SetActive(true);
+                    itemNumber = i;
+                    i = itemFlag.Length;
+                }
+            }
+        }
+
         if(itemFlag.All(i => i == false))
         {
             for(int i = 0;i<itemFlag.Length;i++)
@@ -82,27 +96,29 @@ public class UseItemUI : MonoBehaviour
 
     private void UpSwitch()
     {
+        int number = itemNumber;
         int oldItemNumber = itemNumber;
-        Debug.Log(oldItemNumber);
-        itemNumber++;
-        if (itemNumber < useItemDate.Count)
+        number++;
+        if (number < useItemDate.Count)
         {
-            if (itemFlag[itemNumber] == true)
+            if (itemFlag[number] == true)
             {
                 useItemDate[oldItemNumber].itemUI.SetActive(false);
-                useItemDate[itemNumber].itemUI.SetActive(true);
+                useItemDate[number].itemUI.SetActive(true);
+                itemNumber = number;
             }
-            else if (itemFlag[itemNumber] == false)
+            else if (itemFlag[number] == false)
             {
-                if (itemNumber + 1 < useItemDate.Count)
+                if (number + 1 < useItemDate.Count)
                 {
-                    if (itemFlag[itemNumber + 1] == true)
+                    if (itemFlag[number + 1] == true)
                     {
-                        itemNumber++;
+                        number++;
                         useItemDate[oldItemNumber].itemUI.SetActive(false);
-                        useItemDate[itemNumber].itemUI.SetActive(true);
+                        useItemDate[number].itemUI.SetActive(true);
+                        itemNumber = number;
                     }
-                    else if (itemFlag[itemNumber + 1] == false)
+                    else if (itemFlag[number + 1] == false)
                     {
                         for (int i = 0; i < itemFlag.Length; i++)
                         {
@@ -115,7 +131,7 @@ public class UseItemUI : MonoBehaviour
                             }
                         }
                     }
-                    else if (itemNumber + 1 == useItemDate.Count)
+                    else if (number + 1 == useItemDate.Count)
                     {
                         for (int i = 0; i < itemFlag.Length; i++)
                         {
@@ -131,7 +147,7 @@ public class UseItemUI : MonoBehaviour
                 }
             }
         }
-        else if (itemNumber == useItemDate.Count)
+        else if (number == useItemDate.Count)
         {
             for (int i = 0; i < itemFlag.Length; i++)
             {
@@ -148,26 +164,29 @@ public class UseItemUI : MonoBehaviour
 
     private void DownSwitch()
     {
+        int number = itemNumber;
         int oldItemNumber = itemNumber;
-        itemNumber--;
-        if (itemNumber >= 0)
+        number--;
+        if (number >= 0)
         {
-            if (itemFlag[itemNumber] == true)
+            if (itemFlag[number] == true)
             {
                 useItemDate[oldItemNumber].itemUI.SetActive(false);
-                useItemDate[itemNumber].itemUI.SetActive(true);
+                useItemDate[number].itemUI.SetActive(true);
+                itemNumber = number;
             }
-            else if (itemFlag[itemNumber] == false)
+            else if (itemFlag[number] == false)
             {
-                if (itemNumber - 1 >= 0)
+                if (number - 1 >= 0)
                 {
-                    if (itemFlag[itemNumber - 1] == true)
+                    if (itemFlag[number - 1] == true)
                     {
-                        itemNumber--;
+                        number--;
                         useItemDate[oldItemNumber].itemUI.SetActive(false);
-                        useItemDate[itemNumber].itemUI.SetActive(true);
+                        useItemDate[number].itemUI.SetActive(true);
+                        itemNumber = number;
                     }
-                    else if (itemFlag[itemNumber - 1] == false)
+                    else if (itemFlag[number - 1] == false)
                     {
                         for (int i = itemFlag.Length - 1; i >= -1; i--)
                         {
@@ -180,7 +199,7 @@ public class UseItemUI : MonoBehaviour
                             }
                         }
                     }
-                    else if (itemNumber == -1)
+                    else if (number == -1)
                     {
                         for (int i = itemFlag.Length - 1; i >= -1; i--)
                         {
@@ -196,7 +215,7 @@ public class UseItemUI : MonoBehaviour
                 }
             }
         }
-        else if (itemNumber == -1)
+        else if (number == -1)
         {
             for (int i = itemFlag.Length - 1; i >= -1; i--)
             {
