@@ -8,7 +8,8 @@ public class ThrowItem : MonoBehaviour
     [SerializeField] GameObject throwItem;
     [SerializeField] ItemManeger itemManeger;
     [SerializeField] float throwPower = 10f;
-    private Vector3 throwPosition;
+    [SerializeField] GameObject throwPosition;
+    bool throwFlag;
 
     // Update is called once per frame
     void Update()
@@ -19,17 +20,10 @@ public class ThrowItem : MonoBehaviour
             {
                 if (itemManeger.numOfItem[throwItemData] >= 1)
                 {
-                    throwPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-                    GameObject createThrowItem = Instantiate(throwItem, throwPosition, transform.rotation);
+                    GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
                     createThrowItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
 
                     itemManeger.numOfItem[throwItemData] -= 1;
-                }
-                else
-                {
-                    //通常は何もできない（下はテスト用）
-                    Debug.Log("投げるもんなんてねぇんじゃボケェ");
                 }
             }
         }

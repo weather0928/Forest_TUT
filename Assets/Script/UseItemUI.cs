@@ -21,6 +21,8 @@ public class UseItemUI : MonoBehaviour
     [SerializeField] private List<Date> useItemDate = new List<Date>();
     private bool[] itemFlag;
     private int itemNumber;
+    private bool switchFlag;
+    private bool switchConpleateFlag;
 
     private void Start()
     {
@@ -81,8 +83,9 @@ public class UseItemUI : MonoBehaviour
     private void UpSwitch()
     {
         int oldItemNumber = itemNumber;
+        Debug.Log(oldItemNumber);
         itemNumber++;
-        if(itemNumber < useItemDate.Count)
+        if (itemNumber < useItemDate.Count)
         {
             if (itemFlag[itemNumber] == true)
             {
@@ -99,7 +102,20 @@ public class UseItemUI : MonoBehaviour
                         useItemDate[oldItemNumber].itemUI.SetActive(false);
                         useItemDate[itemNumber].itemUI.SetActive(true);
                     }
-                    else if(itemFlag[itemNumber + 1] == false)
+                    else if (itemFlag[itemNumber + 1] == false)
+                    {
+                        for (int i = 0; i < itemFlag.Length; i++)
+                        {
+                            if (itemFlag[i] == true)
+                            {
+                                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                                useItemDate[i].itemUI.SetActive(true);
+                                itemNumber = i;
+                                i = itemFlag.Length;
+                            }
+                        }
+                    }
+                    else if (itemNumber + 1 == useItemDate.Count)
                     {
                         for (int i = 0; i < itemFlag.Length; i++)
                         {
@@ -115,11 +131,11 @@ public class UseItemUI : MonoBehaviour
                 }
             }
         }
-        else if(itemNumber == useItemDate.Count)
+        else if (itemNumber == useItemDate.Count)
         {
-            for(int i = 0;i < itemFlag.Length;i++)
+            for (int i = 0; i < itemFlag.Length; i++)
             {
-                if(itemFlag[i] == true)
+                if (itemFlag[i] == true)
                 {
                     useItemDate[oldItemNumber].itemUI.SetActive(false);
                     useItemDate[i].itemUI.SetActive(true);
@@ -153,7 +169,20 @@ public class UseItemUI : MonoBehaviour
                     }
                     else if (itemFlag[itemNumber - 1] == false)
                     {
-                        for (int i = itemFlag.Length - 1; i >= -1; i++)
+                        for (int i = itemFlag.Length - 1; i >= -1; i--)
+                        {
+                            if (itemFlag[i] == true)
+                            {
+                                useItemDate[oldItemNumber].itemUI.SetActive(false);
+                                useItemDate[i].itemUI.SetActive(true);
+                                itemNumber = i;
+                                i = -1;
+                            }
+                        }
+                    }
+                    else if (itemNumber == -1)
+                    {
+                        for (int i = itemFlag.Length - 1; i >= -1; i--)
                         {
                             if (itemFlag[i] == true)
                             {
@@ -169,7 +198,7 @@ public class UseItemUI : MonoBehaviour
         }
         else if (itemNumber == -1)
         {
-            for (int i = itemFlag.Length - 1; i >= -1; i++)
+            for (int i = itemFlag.Length - 1; i >= -1; i--)
             {
                 if (itemFlag[i] == true)
                 {
