@@ -8,7 +8,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float rotateSpeed = 90f;
     //Cameraが回転するスピード
     [SerializeField] float rotate_speed = 3;
-    [SerializeField] GameObject CreateItemUI;
+    [SerializeField] GameObject gameUI;
+    [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
 
     public bool camera2Flag = false;
@@ -17,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         moveFlag = true;
-        CreateItemUI.SetActive(false);
+        createItemUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,9 +63,10 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown("q"))
+        if(Input.GetKeyDown("r") && CreateItem.craftFlag == false)
         {
-            CreateItemUI.SetActive(!CreateItemUI.activeSelf);
+            gameUI.SetActive(!gameUI.activeSelf);
+            createItemUI.SetActive(!createItemUI.activeSelf);
             moveFlag = !moveFlag;
         }
     }
