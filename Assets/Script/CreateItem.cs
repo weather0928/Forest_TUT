@@ -30,51 +30,57 @@ public class CreateItem : MonoBehaviour
 
     private void Update()
     {
-        if(craftFlag == true)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if(createStartFlag == true)
+            return;
+        }
+        else
+        {
+            if (craftFlag == true)
             {
-                slider.SetActive(true);
-                if(itemManeger.numOfItem[hammerItem] == 1)
+                if (createStartFlag == true)
                 {
-                    slider.GetComponent<Slider>().maxValue = stopTime / 2;
+                    slider.SetActive(true);
+                    if (itemManeger.numOfItem[hammerItem] == 1)
+                    {
+                        slider.GetComponent<Slider>().maxValue = stopTime / 2;
+                    }
+                    else
+                    {
+                        slider.GetComponent<Slider>().maxValue = stopTime;
+                    }
+                    soundManeger.GetComponent<SoundManager>().PlaySeByName("3konngou");
+                    createStartFlag = false;
+                }
+                slider.GetComponent<Slider>().value = seconds;
+                SoundJudge.soundFlag = true;
+                SoundJudge.soundPoint = player.transform.position;
+                seconds += Time.deltaTime;
+                player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                Debug.Log(seconds);
+                this.GetComponent<CanvasGroup>().alpha = 0;
+                this.GetComponent<CanvasGroup>().interactable = false;
+                if (itemManeger.numOfItem[hammerItem] == 1)
+                {
+                    if (seconds >= stopTime / 2)
+                    {
+                        CreateComplete();
+                        hammerRemainingUses--;
+                        if (hammerRemainingUses == 0)
+                        {
+                            itemManeger.numOfItem[hammerItem]--;
+                        }
+                    }
                 }
                 else
                 {
-                    slider.GetComponent<Slider>().maxValue = stopTime;
-                }
-                soundManeger.GetComponent<SoundManager>().PlaySeByName("3konngou");
-                createStartFlag = false;
-            }
-            slider.GetComponent<Slider>().value = seconds;
-            SoundJudge.soundFlag = true;
-            SoundJudge.soundPoint = player.transform.position;
-            seconds += Time.deltaTime;
-            player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-            Debug.Log(seconds);
-            this.GetComponent<CanvasGroup>().alpha = 0;
-            this.GetComponent<CanvasGroup>().interactable = false;
-            if(itemManeger.numOfItem[hammerItem] == 1)
-            {
-                if (seconds >= stopTime / 2)
-                {
-                    CreateComplete();
-                    hammerRemainingUses--;
-                    if(hammerRemainingUses == 0)
+                    if (seconds >= stopTime)
                     {
-                        itemManeger.numOfItem[hammerItem]--;
+                        CreateComplete();
                     }
                 }
             }
-            else
-            {
-                if (seconds >= stopTime)
-                {
-                    CreateComplete();
-                }
-            }
         }
-        
     }
 
     private void CreateComplete()

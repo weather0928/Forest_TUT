@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 4080118376939511419}
   - component: {fileID: 4080118376939511420}
   - component: {fileID: 4080118376939511418}
+  - component: {fileID: 11273840}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -253,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 4080118376939511423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -76.036, y: 1, z: -72.70155}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4080118376407186189}
   - {fileID: 4080118375841396069}
@@ -351,6 +352,19 @@ MonoBehaviour:
   walkSpeed: 3
   rotateSpeed: 90
   rotate_speed: 3
-  gameUI: {fileID: 0}
-  createItemUI: {fileID: 0}
+  gameUI: {fileID: 6061628685413300624, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba, type: 3}
+  createItemUI: {fileID: 2549253386386465386, guid: d0043d21db4524449afd4956476ffc19,
+    type: 3}
   camera2Flag: 0
+--- !u!114 &11273840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080118376939511423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8063adcda7679814490c644baa4b654d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

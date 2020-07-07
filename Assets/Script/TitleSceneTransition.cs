@@ -16,5 +16,6 @@ public class TitleSceneTransition : MonoBehaviour
     {
         soundManeger.GetComponent<SoundManager>().PlaySeByName("button");
         SceneManager.LoadScene("Title");
+        Time.timeScale = 1.0f;
     }
 }

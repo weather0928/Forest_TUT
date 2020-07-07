@@ -32,52 +32,60 @@ public class UseItemUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0;i < itemFlag.Length;i++)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            itemFlag[i] = ItemCheck(useItemDate[i].itemDate);
-            if(itemFlag[i] == true && nonItemUI.activeSelf == true)
-            {
-                useItemDate[i].itemUI.SetActive(true);
-                itemNumber = i;
-                nonItemUI.SetActive(false);
-            }
+            return;
         }
-
-        if(itemFlag[itemNumber] == false)
+        else
         {
-            useItemDate[itemNumber].itemUI.SetActive(false);
             for (int i = 0; i < itemFlag.Length; i++)
             {
-                if (itemFlag[i] == true)
+                itemFlag[i] = ItemCheck(useItemDate[i].itemDate);
+                if (itemFlag[i] == true && nonItemUI.activeSelf == true)
                 {
                     useItemDate[i].itemUI.SetActive(true);
                     itemNumber = i;
-                    i = itemFlag.Length;
+                    nonItemUI.SetActive(false);
+                }
+            }
+
+            if (itemFlag[itemNumber] == false)
+            {
+                useItemDate[itemNumber].itemUI.SetActive(false);
+                for (int i = 0; i < itemFlag.Length; i++)
+                {
+                    if (itemFlag[i] == true)
+                    {
+                        useItemDate[i].itemUI.SetActive(true);
+                        itemNumber = i;
+                        i = itemFlag.Length;
+                    }
+                }
+            }
+
+            if (itemFlag.All(i => i == false))
+            {
+                for (int i = 0; i < itemFlag.Length; i++)
+                {
+                    useItemDate[i].itemUI.SetActive(false);
+                }
+                nonItemUI.SetActive(true);
+            }
+
+            float val = Input.GetAxis("Mouse ScrollWheel");
+            if (nonItemUI.activeSelf == false)
+            {
+                if (val > 0.0f)
+                {
+                    UpSwitch();
+                }
+                else if (val < 0.0f)
+                {
+                    DownSwitch();
                 }
             }
         }
-
-        if(itemFlag.All(i => i == false))
-        {
-            for(int i = 0;i<itemFlag.Length;i++)
-            {
-                useItemDate[i].itemUI.SetActive(false);
-            }
-            nonItemUI.SetActive(true);
-        }
-
-        float val = Input.GetAxis("Mouse ScrollWheel");
-        if(nonItemUI.activeSelf == false)
-        {
-            if (val > 0.0f)
-            {
-                UpSwitch();
-            }
-            else if (val < 0.0f)
-            {
-                DownSwitch();
-            }
-        }
+        
     }
 
     private bool ItemCheck(Item item)
@@ -131,17 +139,17 @@ public class UseItemUI : MonoBehaviour
                             }
                         }
                     }
-                    else if (number + 1 == useItemDate.Count)
+                }
+                else if (number + 1 == useItemDate.Count)
+                {
+                    for (int i = 0; i < itemFlag.Length; i++)
                     {
-                        for (int i = 0; i < itemFlag.Length; i++)
+                        if (itemFlag[i] == true)
                         {
-                            if (itemFlag[i] == true)
-                            {
-                                useItemDate[oldItemNumber].itemUI.SetActive(false);
-                                useItemDate[i].itemUI.SetActive(true);
-                                itemNumber = i;
-                                i = itemFlag.Length;
-                            }
+                            useItemDate[oldItemNumber].itemUI.SetActive(false);
+                            useItemDate[i].itemUI.SetActive(true);
+                            itemNumber = i;
+                            i = itemFlag.Length;
                         }
                     }
                 }

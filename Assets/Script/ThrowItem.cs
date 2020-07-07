@@ -19,17 +19,24 @@ public class ThrowItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerMove.moveFlag == true)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if (Input.GetMouseButtonDown(0))
+            return;
+        }
+        else
+        {
+            if (PlayerMove.moveFlag == true)
             {
-                if (itemManeger.numOfItem[throwItemData] >= 1)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
-                    createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
-                    soundManeger.GetComponent<SoundManager>().PlaySeByName("throw");
+                    if (itemManeger.numOfItem[throwItemData] >= 1)
+                    {
+                        GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
+                        createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
+                        soundManeger.GetComponent<SoundManager>().PlaySeByName("throw");
 
-                    itemManeger.numOfItem[throwItemData] -= 1;
+                        itemManeger.numOfItem[throwItemData] -= 1;
+                    }
                 }
             }
         }

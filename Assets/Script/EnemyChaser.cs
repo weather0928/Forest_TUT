@@ -61,79 +61,87 @@ public class EnemyChaser : MonoBehaviour
 
     void Update()
     {
-        if (agent.remainingDistance < 0.5f)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            GotoNextPoint();
+            return;
         }
-
-        if (gameOverFlag == true) //ゲームオーバー処理
+        else
         {
-            SceneManager.LoadScene("GameOver");
-        }
-
-        if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
-        {
-            agent.destination = SoundJudge.soundPoint;
-            GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-            //Debug.Log(inArea);
-            if(soundHeardFlag == true)
+            if (agent.remainingDistance < 0.5f)
             {
-                audioSource.PlayOneShot(soundHeardVoice);
-                soundHeardFlag = false;
+                GotoNextPoint();
             }
 
-            if (SoundJudge.soundFlag == false)
+            if (gameOverFlag == true) //ゲームオーバー処理
             {
-                soundSecond += Time.deltaTime;
-                if (soundSecond >= soundStopTime)
+                SceneManager.LoadScene("GameOver");
+            }
+
+            if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
+            {
+                agent.destination = SoundJudge.soundPoint;
+                GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                //Debug.Log(inArea);
+                if (soundHeardFlag == true)
                 {
-                    SoundJudge.soundJudge = false;
-                    soundSecond = 0f;
-                    GetComponent<Renderer>().material.color = origColor;
-                    audioSource.PlayOneShot(blameVoice);
-                    GotoNextPoint();
+                    audioSource.PlayOneShot(soundHeardVoice);
+                    soundHeardFlag = false;
+                }
+
+                if (SoundJudge.soundFlag == false)
+                {
+                    soundSecond += Time.deltaTime;
+                    if (soundSecond >= soundStopTime)
+                    {
+                        SoundJudge.soundJudge = false;
+                        soundSecond = 0f;
+                        GetComponent<Renderer>().material.color = origColor;
+                        audioSource.PlayOneShot(blameVoice);
+                        GotoNextPoint();
+                    }
                 }
             }
-        }
 
-        if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false)　//エリア内にいて、かつ「生存」状態の時
-        {
-            if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == false)
+            if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false) //エリア内にいて、かつ「生存」状態の時
             {
-                agent.destination = target.transform.position;
-                audioSource.PlayOneShot(foundPlayerVoice);
-                EneChasing();
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                chaseSecond = 0f;
-                inPursuitFlag = true;
-            }
-            else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == true)
-            {
-                agent.destination = target.transform.position;
-                EneChasing();
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                chaseSecond = 0f;
-            }
-            else if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
-            {
-                chaseSecond += Time.deltaTime;
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-                inPursuitFlag = false;
-                if (chaseSecond >= chaseStopTime)
+                if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == false)
                 {
-                    chaseSwitchFlag = true;
+                    agent.destination = target.transform.position;
+                    audioSource.PlayOneShot(foundPlayerVoice);
+                    EneChasing();
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                    chaseSecond = 0f;
+                    inPursuitFlag = true;
+                }
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == true)
+                {
+                    agent.destination = target.transform.position;
+                    EneChasing();
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                     chaseSecond = 0f;
                 }
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
+                {
+                    chaseSecond += Time.deltaTime;
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                    inPursuitFlag = false;
+                    if (chaseSecond >= chaseStopTime)
+                    {
+                        chaseSwitchFlag = true;
+                        chaseSecond = 0f;
+                    }
+                }
+            }
+            else if (inArea == true && chaseSwitchFlag == true)
+            {
+                inArea = false;
+                GetComponent<Renderer>().material.color = origColor;
+                GotoNextPoint();
+                chaseSwitchFlag = false;
             }
         }
-        else if(inArea == true && chaseSwitchFlag == true)
-        {
-            inArea = false;
-            GetComponent<Renderer>().material.color = origColor;
-            GotoNextPoint();
-            chaseSwitchFlag = false;
-        }
     }
+        
 
     private void OnCollisionEnter(Collision other) //プレイヤーやアイテムに触れたときの処理（後々はゲームオーバー処理などに代わる）
     {

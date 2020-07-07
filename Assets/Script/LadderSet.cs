@@ -18,7 +18,7 @@ public class LadderSet : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 Vector3 setPosition = ladderPosition;
-                setPosition.y += (ladderObject.transform.localScale.y / 2.0f) - 0.5f;
+                setPosition.y += (ladderObject.transform.localScale.y / 2.0f) - 0.2f;
                 GameObject createLadder = Instantiate(ladderObject, setPosition, player.transform.rotation);
                 itemManeger.numOfItem[ladderDate] -= 1;
             }

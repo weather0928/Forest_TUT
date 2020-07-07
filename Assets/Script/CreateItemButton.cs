@@ -36,6 +36,10 @@ public class CreateItemButton : MonoBehaviour
             {
                 conditionFlag[i] = true;
             }
+            else
+            {
+                conditionFlag[i] = false;
+            }
         }
 
         if(hammerFlag == true)
