@@ -48,9 +48,23 @@ public class Ladder : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && ladderFlag == false)
         {
-            PlayerMove.moveFlag = false;
-            ladderFlag = true;
-            player = other.gameObject.GetComponent<Rigidbody>();
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerMove.moveFlag = false;
+                ladderFlag = true;
+                player = other.gameObject.GetComponent<Rigidbody>();
+            }
+        }
+        else if(other.gameObject.tag == "Player" && ladderFlag == true)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerMove.moveFlag = true;
+                player = null;
+                upFlag = false;
+                downFlag = false;
+                ladderFlag = false;
+            }
         }
     }
     private void OnCollisionExit(Collision other)
