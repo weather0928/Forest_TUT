@@ -17,7 +17,6 @@ public class ItemManeger : MonoBehaviour
             //　アイテム数を初期化
             numOfItem.Add(itemDataBase.GetItemLists()[i], 0);
         }
-        numOfItem[GetItem("サンプル3")] += 1;//6月18日発表用
     }
 
     //　名前でアイテムを取得

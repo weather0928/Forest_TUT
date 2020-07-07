@@ -17,15 +17,22 @@ public class Ladder : MonoBehaviour
 
     private void Update()
     {
-        if(ladderFlag == true)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if (Input.GetKey(KeyCode.W))
+            return;
+        }
+        else
+        {
+            if (ladderFlag == true)
             {
-                upFlag = true;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                downFlag = true;
+                if (Input.GetKey(KeyCode.W))
+                {
+                    upFlag = true;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    downFlag = true;
+                }
             }
         }
     }

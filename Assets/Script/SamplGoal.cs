@@ -8,7 +8,6 @@ public class SamplGoal : MonoBehaviour
     [SerializeField] private Item goalItem;
     [SerializeField] private ItemManeger itemManeger;
     [SerializeField] int goalItemNumber;
-    [SerializeField] private GameObject Enemy;
 
     private bool gameClearFlag;
 
