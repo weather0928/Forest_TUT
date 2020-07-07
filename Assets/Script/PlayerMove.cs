@@ -14,11 +14,14 @@ public class PlayerMove : MonoBehaviour
 
     public bool camera2Flag = false;
 
+    GameObject soundManeger;
+
     // Start is called before the first frame update
     void Start()
     {
         moveFlag = true;
         createItemUI.SetActive(false);
+        soundManeger = GameObject.Find("SoundManager");
     }
 
     // Update is called once per frame

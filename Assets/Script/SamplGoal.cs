@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SamplGoal : MonoBehaviour
 {
@@ -9,14 +10,28 @@ public class SamplGoal : MonoBehaviour
     [SerializeField] int goalItemNumber;
     [SerializeField] private GameObject Enemy;
 
+    private bool gameClearFlag;
+
+    private void Start()
+    {
+        gameClearFlag = false;
+    }
+
+    private void Update()
+    {
+        if(gameClearFlag == true)
+        {
+            SceneManager.LoadScene("GameClear");
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             if (itemManeger.numOfItem[goalItem] >= goalItemNumber)
             {
-                Destroy(Enemy);
-                this.gameObject.SetActive(false);
+                gameClearFlag = true;
             }
         }
     }
