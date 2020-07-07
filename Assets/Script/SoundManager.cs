@@ -98,7 +98,7 @@ public class SoundManager : MonoBehaviour
 
     public int GetSeIndex(string name)
     {
-        if (seIndex.ContainsKey(name))
+        if (seIndex.ContainsKey(name) == true)
         {
             return seIndex[name];
         }

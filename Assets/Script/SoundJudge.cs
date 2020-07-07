@@ -13,9 +13,10 @@ public class SoundJudge : MonoBehaviour
     {
         if(other.gameObject.tag == "Player" || other.gameObject.tag == "SoundItem")
         {
-            if (soundFlag == true)
+            if (soundFlag == true && soundJudge == false)
             {
                 soundJudge = true;
+                EnemyChaser.soundHeardFlag = true;
             }
         }
     }

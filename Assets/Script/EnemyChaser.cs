@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class EnemyChaser : MonoBehaviour
     //AIで動かすための変数
     private NavMeshAgent agent;
 
+    //商人がターゲットを見つけたときの音
+    [SerializeField] AudioClip foundPlayerVoice;
+
     //ターゲット（プレイヤー）を追うために使う変数
     [SerializeField] GameObject target;
     [System.NonSerialized]public static bool inArea = false;
@@ -20,18 +24,36 @@ public class EnemyChaser : MonoBehaviour
     [System.NonSerialized]public static bool chaseSwitchFlag = false;
     [SerializeField]private float chaseStopTime;
     private float chaseSecond = 0f;
+    private bool inPursuitFlag;
+
+    //商人から音を出すために使うもの
+    AudioSource audioSource;
+
+    //音が鳴った時に使う変数
+    [SerializeField]AudioClip soundHeardVoice;
+    [System.NonSerialized] public static bool soundHeardFlag;
 
     //音が鳴らなくなった時に使う変数
     [SerializeField] float soundStopTime;
     private float soundSecond = 0f;
+
+    //商人が気のせいだと感じたときに出す音
+    [SerializeField] AudioClip blameVoice;
 
     //罠にかかった時に使う変数など
     private float staleStopTime;
     private float staleSecond = 0f;
     private bool staleFlag = false;
 
+    //ゲームオーバー画面に行くためのもの
+    private bool gameOverFlag;
+
     void Start()
     {
+        soundHeardFlag = false;
+        inPursuitFlag = false;
+        gameOverFlag = false;
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
         GotoNextPoint();
@@ -44,16 +66,21 @@ public class EnemyChaser : MonoBehaviour
             GotoNextPoint();
         }
 
-        if (target.activeInHierarchy == false) //ターゲットがいなくなったときの処理（制作が進んだらゲームオーバー時に代わる）
+        if (gameOverFlag == true) //ゲームオーバー処理
         {
-            GetComponent<Renderer>().material.color = origColor;
+            SceneManager.LoadScene("GameOver");
         }
 
         if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
         {
             agent.destination = SoundJudge.soundPoint;
             GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-            Debug.Log(inArea);
+            //Debug.Log(inArea);
+            if(soundHeardFlag == true)
+            {
+                audioSource.PlayOneShot(soundHeardVoice);
+                soundHeardFlag = false;
+            }
 
             if (SoundJudge.soundFlag == false)
             {
@@ -63,6 +90,7 @@ public class EnemyChaser : MonoBehaviour
                     SoundJudge.soundJudge = false;
                     soundSecond = 0f;
                     GetComponent<Renderer>().material.color = origColor;
+                    audioSource.PlayOneShot(blameVoice);
                     GotoNextPoint();
                 }
             }
@@ -70,7 +98,16 @@ public class EnemyChaser : MonoBehaviour
 
         if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false)　//エリア内にいて、かつ「生存」状態の時
         {
-            if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false)
+            if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == false)
+            {
+                agent.destination = target.transform.position;
+                audioSource.PlayOneShot(foundPlayerVoice);
+                EneChasing();
+                GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                chaseSecond = 0f;
+                inPursuitFlag = true;
+            }
+            else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == true)
             {
                 agent.destination = target.transform.position;
                 EneChasing();
@@ -81,6 +118,7 @@ public class EnemyChaser : MonoBehaviour
             {
                 chaseSecond += Time.deltaTime;
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                inPursuitFlag = false;
                 if (chaseSecond >= chaseStopTime)
                 {
                     chaseSwitchFlag = true;
@@ -91,7 +129,6 @@ public class EnemyChaser : MonoBehaviour
         else if(inArea == true && chaseSwitchFlag == true)
         {
             inArea = false;
-            chaseSwitchFlag = false;
             GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
             chaseSwitchFlag = false;
@@ -102,7 +139,7 @@ public class EnemyChaser : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.SetActive(false);
+            gameOverFlag = true;
         }
         if(other.gameObject.tag == "SoundItem")
         {

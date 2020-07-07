@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class PlaySceneTransition : MonoBehaviour
 {
-   public void OnClick()
-   {
+    GameObject soundManeger;
+
+    private void Start()
+    {
+        soundManeger = GameObject.Find("SoundManager");
+    }
+
+    public void OnClick()
+    {
+        soundManeger.GetComponent<SoundManager>().PlaySeByName("button");
         SceneManager.LoadScene("Main");
-   }
+    }
 }
