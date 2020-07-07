@@ -8,31 +8,36 @@ public class ThrowItem : MonoBehaviour
     [SerializeField] GameObject throwItem;
     [SerializeField] ItemManeger itemManeger;
     [SerializeField] float throwPower = 10f;
-    private Vector3 throwPosition;
+    [SerializeField] GameObject throwPosition;
+    GameObject soundManeger;
 
     private void Start()
     {
-        itemManeger.numOfItem[throwItemData] = 1000;//テスト用
+        soundManeger = GameObject.Find("SoundManager");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if (itemManeger.numOfItem[throwItemData] >= 1)
+            return;
+        }
+        else
+        {
+            if (PlayerMove.moveFlag == true)
             {
-                throwPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (itemManeger.numOfItem[throwItemData] >= 1)
+                    {
+                        GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
+                        createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
+                        soundManeger.GetComponent<SoundManager>().PlaySeByName("throw");
 
-                GameObject createThrowItem = Instantiate(throwItem, throwPosition,transform.rotation);
-                createThrowItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
-
-                itemManeger.numOfItem[throwItemData] -= 1;
-            }
-            else
-            {
-                //通常は何もできない（下はテスト用）
-                Debug.Log("投げるもんなんてねぇんじゃボケェ");
+                        itemManeger.numOfItem[throwItemData] -= 1;
+                    }
+                }
             }
         }
     }

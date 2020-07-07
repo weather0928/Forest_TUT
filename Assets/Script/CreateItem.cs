@@ -1,77 +1,104 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class CreateItem : MonoBehaviour
 {
-    [SerializeField] private Item itemDate;
+    [System.NonSerialized] public static Item craftItemDate;
     [SerializeField] private ItemManeger itemManeger;
+    [SerializeField] Item hammerItem;
+    [SerializeField] int hammerUse;
     [SerializeField] private float stopTime;
     [SerializeField] private Color origColor;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject slider;
     private float seconds;
-    //アイテム作成の情報を入れる
-    [System.Serializable]
-    public struct Cost
-    {
-        public Item MaterialItem;
-        public int amount;
-    }
-    [SerializeField] private List<Cost> craftCost = new List<Cost>();
+    int hammerRemainingUses;
+    [System.NonSerialized] public static bool craftFlag;
+    [System.NonSerialized] public static bool createStartFlag;
 
-    private bool[] conditionFlag;
-    private bool craftFlag;
-
+    GameObject soundManeger;
 
     private void Start()
     {
-        conditionFlag = new bool[craftCost.Count];
-        for(int i = 0;i < conditionFlag.Length;i++)
-        {
-            conditionFlag[i] = false;
-        }
+        createStartFlag = false;
+        slider.SetActive(false);
+        soundManeger = GameObject.Find("SoundManager");
     }
 
     private void Update()
     {
-        for (int i = 0; i < craftCost.Count; i++)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if (itemManeger.numOfItem[craftCost[i].MaterialItem] >= craftCost[i].amount)
-            {
-                conditionFlag[i] = true;
-            }
+            return;
         }
-
-        if (Input.GetKey(KeyCode.Q) && conditionFlag.All(i => i == true) && PlayerMove.moveFlag == true)
+        else
         {
-            craftFlag = true;
-        }
-
-        if(craftFlag == true)
-        {
-            SoundJudge.soundFlag = true;
-            SoundJudge.soundPoint = this.gameObject.transform.position;
-            PlayerMove.moveFlag = false;
-            seconds += Time.deltaTime;
-            GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-            Debug.Log(seconds);
-            if (seconds >= stopTime)
+            if (craftFlag == true)
             {
-                itemManeger.numOfItem[itemDate] += 1;
-                for (int i = 0; i < craftCost.Count; i++)
+                if (createStartFlag == true)
                 {
-                    itemManeger.numOfItem[craftCost[i].MaterialItem] -= craftCost[i].amount;
-                    conditionFlag[i] = false;
+                    slider.SetActive(true);
+                    if (itemManeger.numOfItem[hammerItem] == 1)
+                    {
+                        slider.GetComponent<Slider>().maxValue = stopTime / 2;
+                    }
+                    else
+                    {
+                        slider.GetComponent<Slider>().maxValue = stopTime;
+                    }
+                    soundManeger.GetComponent<SoundManager>().PlaySeByName("3konngou");
+                    createStartFlag = false;
                 }
-                craftFlag = false;
-                SoundJudge.soundFlag = false;
-                seconds = 0.0f;
-                PlayerMove.moveFlag = true;
-                Debug.Log(itemManeger.numOfItem[itemDate]);
-                GetComponent<Renderer>().material.color = origColor;
+                slider.GetComponent<Slider>().value = seconds;
+                SoundJudge.soundFlag = true;
+                SoundJudge.soundPoint = player.transform.position;
+                seconds += Time.deltaTime;
+                player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                Debug.Log(seconds);
+                this.GetComponent<CanvasGroup>().alpha = 0;
+                this.GetComponent<CanvasGroup>().interactable = false;
+                if (itemManeger.numOfItem[hammerItem] == 1)
+                {
+                    if (seconds >= stopTime / 2)
+                    {
+                        CreateComplete();
+                        hammerRemainingUses--;
+                        if (hammerRemainingUses == 0)
+                        {
+                            itemManeger.numOfItem[hammerItem]--;
+                        }
+                    }
+                }
+                else
+                {
+                    if (seconds >= stopTime)
+                    {
+                        CreateComplete();
+                    }
+                }
             }
         }
-        
     }
- }
+
+    private void CreateComplete()
+    {
+        itemManeger.numOfItem[craftItemDate] += 1;
+        if(craftItemDate == hammerItem)
+        {
+            hammerRemainingUses = hammerUse;
+        }
+        soundManeger.GetComponent<SoundManager>().StopSe();
+        craftFlag = false;
+        SoundJudge.soundFlag = false;
+        seconds = 0.0f;
+        this.GetComponent<CanvasGroup>().alpha = 1;
+        this.GetComponent<CanvasGroup>().interactable = true;
+        Debug.Log(itemManeger.numOfItem[craftItemDate]);
+        player.GetComponent<Renderer>().material.color = origColor;
+        slider.SetActive(false);
+    }
+}
 

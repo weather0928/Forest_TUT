@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -12,18 +13,47 @@ public class EnemyChaser : MonoBehaviour
     //AIで動かすための変数
     private NavMeshAgent agent;
 
+    //商人がターゲットを見つけたときの音
+    [SerializeField] AudioClip foundPlayerVoice;
+
     //ターゲット（プレイヤー）を追うために使う変数
     [SerializeField] GameObject target;
-    private bool inArea = false;
+    [System.NonSerialized]public static bool inArea = false;
     [SerializeField] float chaspeed = 0.05f;
     [SerializeField] Color origColor;
+    [System.NonSerialized]public static bool chaseSwitchFlag = false;
+    [SerializeField]private float chaseStopTime;
+    private float chaseSecond = 0f;
+    private bool inPursuitFlag;
 
-    //プレイヤーが隠れたときや音が鳴らなくなった時に使う変数
-    [SerializeField] float stopTime;
-    private float second = 0f;
+    //商人から音を出すために使うもの
+    AudioSource audioSource;
+
+    //音が鳴った時に使う変数
+    [SerializeField]AudioClip soundHeardVoice;
+    [System.NonSerialized] public static bool soundHeardFlag;
+
+    //音が鳴らなくなった時に使う変数
+    [SerializeField] float soundStopTime;
+    private float soundSecond = 0f;
+
+    //商人が気のせいだと感じたときに出す音
+    [SerializeField] AudioClip blameVoice;
+
+    //罠にかかった時に使う変数など
+    private float staleStopTime;
+    private float staleSecond = 0f;
+    private bool staleFlag = false;
+
+    //ゲームオーバー画面に行くためのもの
+    private bool gameOverFlag;
 
     void Start()
     {
+        soundHeardFlag = false;
+        inPursuitFlag = false;
+        gameOverFlag = false;
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
         GotoNextPoint();
@@ -31,86 +61,108 @@ public class EnemyChaser : MonoBehaviour
 
     void Update()
     {
-        if (agent.remainingDistance < 0.5f)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            GotoNextPoint();
+            return;
         }
-
-        if (target.activeInHierarchy == false) //ターゲットがいなくなったときの処理（制作が進んだらはゲームオーバー時に代わる）
+        else
         {
-            GetComponent<Renderer>().material.color = origColor;
-        }
-
-        if (inArea == true && target.activeInHierarchy == true)　//エリア内にいて、かつ「生存」状態の時
-        {
-            if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false)
+            if (agent.remainingDistance < 0.5f)
             {
-                agent.destination = target.transform.position;
-                EneChasing();
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                second = 0f;
+                GotoNextPoint();
             }
-            else if(Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
+
+            if (gameOverFlag == true) //ゲームオーバー処理
             {
-                second += Time.deltaTime;
+                SceneManager.LoadScene("GameOver");
+            }
+
+            if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
+            {
+                agent.destination = SoundJudge.soundPoint;
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-                if (second >= stopTime)
+                //Debug.Log(inArea);
+                if (soundHeardFlag == true)
                 {
-                    second = 0f;
-                    GetComponent<Renderer>().material.color = origColor;
-                    GotoNextPoint();
-                    inArea = false;
+                    audioSource.PlayOneShot(soundHeardVoice);
+                    soundHeardFlag = false;
+                }
+
+                if (SoundJudge.soundFlag == false)
+                {
+                    soundSecond += Time.deltaTime;
+                    if (soundSecond >= soundStopTime)
+                    {
+                        SoundJudge.soundJudge = false;
+                        soundSecond = 0f;
+                        GetComponent<Renderer>().material.color = origColor;
+                        audioSource.PlayOneShot(blameVoice);
+                        GotoNextPoint();
+                    }
                 }
             }
-        }
 
-        if(SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
-        {
-            agent.destination = SoundJudge.soundPoint;
-            if(inArea == false)
+            if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false) //エリア内にいて、かつ「生存」状態の時
             {
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-            }
-            
-            if (SoundJudge.soundFlag == false)
-            {
-                second += Time.deltaTime;
-                if(second >= stopTime)
+                if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == false)
                 {
-                    SoundJudge.soundJudge = false;
-                    second = 0f;
-                    GetComponent<Renderer>().material.color = origColor;
-                    GotoNextPoint();
+                    agent.destination = target.transform.position;
+                    audioSource.PlayOneShot(foundPlayerVoice);
+                    EneChasing();
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                    chaseSecond = 0f;
+                    inPursuitFlag = true;
                 }
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == true)
+                {
+                    agent.destination = target.transform.position;
+                    EneChasing();
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                    chaseSecond = 0f;
+                }
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
+                {
+                    chaseSecond += Time.deltaTime;
+                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                    inPursuitFlag = false;
+                    if (chaseSecond >= chaseStopTime)
+                    {
+                        chaseSwitchFlag = true;
+                        chaseSecond = 0f;
+                    }
+                }
+            }
+            else if (inArea == true && chaseSwitchFlag == true)
+            {
+                inArea = false;
+                GetComponent<Renderer>().material.color = origColor;
+                GotoNextPoint();
+                chaseSwitchFlag = false;
             }
         }
     }
+        
 
-    private void OnCollisionEnter(Collision other) //プレイヤーに触れたときの処理（後々はゲームオーバー処理に代わる）
+    private void OnCollisionEnter(Collision other) //プレイヤーやアイテムに触れたときの処理（後々はゲームオーバー処理などに代わる）
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.SetActive(false);
+            gameOverFlag = true;
         }
-    }
-
-    void OnTriggerStay(Collider other) //ターゲット（プレイヤー）索敵処理
-    {
-        if (other.gameObject.tag == "Player" && Physics.Linecast(transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
+        if(other.gameObject.tag == "SoundItem")
         {
-            inArea = true;
-            target = other.gameObject;
-            GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-            EneChasing();
-        }
-    }
-
-    void OnTriggerExit(Collider other) //索敵範囲からターゲットが出たときにする処理
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            inArea = false;
+            Destroy(other.gameObject);
+            SoundJudge.soundFlag = false;
+            SoundJudge.soundJudge = false;
             GetComponent<Renderer>().material.color = origColor;
+            GotoNextPoint();
+        }
+        if(other.gameObject.tag == "StaleItem")
+        {
+            GetComponent<NavMeshAgent>().isStopped = true; 
+            staleStopTime = other.gameObject.GetComponent<EnemyStaleItem>().stopTime;
+            staleFlag = true;
+            Destroy(other.gameObject);
         }
     }
 

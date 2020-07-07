@@ -8,56 +8,77 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float rotateSpeed = 90f;
     //Cameraが回転するスピード
     [SerializeField] float rotate_speed = 3;
+    [SerializeField] GameObject gameUI;
+    [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
 
     public bool camera2Flag = false;
+
+    GameObject soundManeger;
 
     // Start is called before the first frame update
     void Start()
     {
         moveFlag = true;
+        createItemUI.SetActive(false);
+        soundManeger = GameObject.Find("SoundManager");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(moveFlag == true)
+        if (Mathf.Approximately(Time.timeScale, 0f))
         {
-            if (Input.GetKey(KeyCode.W))
+            return;
+        }
+        else
+        {
+            if (moveFlag == true)
             {
-                transform.Translate(Vector3.forward * walkSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(Vector3.forward * -walkSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                if(camera2Flag == true)
+                if (Input.GetKey(KeyCode.W))
                 {
-                    transform.Rotate(new Vector3(0, rotateSpeed, 0) * Time.deltaTime);
+                    transform.Translate(Vector3.forward * walkSpeed * Time.deltaTime);
                 }
-                else
+                if (Input.GetKey(KeyCode.S))
                 {
-                    transform.Translate(Vector3.right * walkSpeed * Time.deltaTime); transform.Rotate(new Vector3(0, rotateSpeed, 0) * Time.deltaTime);
+                    transform.Translate(Vector3.forward * -walkSpeed * Time.deltaTime);
                 }
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (camera2Flag == true)
+                if (Input.GetKey(KeyCode.D))
                 {
-                    transform.Rotate(new Vector3(0, -rotateSpeed, 0) * Time.deltaTime);
+                    if (camera2Flag == true)
+                    {
+                        transform.Rotate(new Vector3(0, rotateSpeed, 0) * Time.deltaTime);
+                    }
+                    else
+                    {
+                        transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+                    }
                 }
-                else
+                if (Input.GetKey(KeyCode.A))
                 {
-                    transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
+                    if (camera2Flag == true)
+                    {
+                        transform.Rotate(new Vector3(0, -rotateSpeed, 0) * Time.deltaTime);
+                    }
+                    else
+                    {
+                        transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
+                    }
+                }
+
+                if (camera2Flag == false)
+                {
+                    transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
             }
 
-            if(camera2Flag == false)
+            if (Input.GetKeyDown("r") && CreateItem.craftFlag == false)
             {
-                transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
+                gameUI.SetActive(!gameUI.activeSelf);
+                createItemUI.SetActive(!createItemUI.activeSelf);
+                moveFlag = !moveFlag;
             }
         }
+        
     }
 }
