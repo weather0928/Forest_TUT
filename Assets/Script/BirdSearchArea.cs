@@ -7,8 +7,13 @@ public class BirdSearchArea : MonoBehaviour
     [SerializeField] float keepScreamTime = 0.0f;
     float second = 0.0f;
 
-    bool playerExitFlag = false;
+    bool playerExitFlag;
     [SerializeField] Color origColor;
+
+    private void Start()
+    {
+        playerExitFlag = false;
+    }
 
     private void Update()
     {
