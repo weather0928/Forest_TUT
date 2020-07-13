@@ -12,6 +12,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
 
+    private bool key_W;
+    private bool key_A;
+    private bool key_S;
+    private bool key_D;
+
+    /*float x;
+    float z;*/
+
     public bool camera2Flag = false;
 
     GameObject soundManeger;
@@ -19,6 +27,10 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        key_W = false;
+        key_A = false;
+        key_S = false;
+        key_D = false;
         moveFlag = true;
         createItemUI.SetActive(false);
         soundManeger = GameObject.Find("SoundManager");
@@ -35,15 +47,26 @@ public class PlayerMove : MonoBehaviour
         {
             if (moveFlag == true)
             {
-                if (Input.GetKey(KeyCode.W))
+                /*
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    transform.Translate(Vector3.forward * walkSpeed * Time.deltaTime);
+                    key_W = true;
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if(Input.GetKeyUp(KeyCode.W))
                 {
-                    transform.Translate(Vector3.forward * -walkSpeed * Time.deltaTime);
+                    key_W = false;
                 }
-                if (Input.GetKey(KeyCode.D))
+
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    key_S = true;
+                }
+                else if(Input.GetKeyUp(KeyCode.S))
+                {
+                    key_S = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.D))
                 {
                     if (camera2Flag == true)
                     {
@@ -51,10 +74,17 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+                        key_D = true;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if(Input.GetKeyDown(KeyCode.D))
+                {
+                    if(camera2Flag == false)
+                    {
+                        key_D = false;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     if (camera2Flag == true)
                     {
@@ -62,9 +92,16 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
+                        key_A = true;
                     }
                 }
+                else if (Input.GetKeyUp(KeyCode.A))
+                {
+                    if(camera2Flag == false)
+                    {
+                        key_A = false;
+                    }
+                }*/
 
                 if (camera2Flag == false)
                 {
@@ -80,5 +117,13 @@ public class PlayerMove : MonoBehaviour
             }
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        float z = Input.GetAxis("Vertical") * walkSpeed;
+        float x = Input.GetAxis("Horizontal") * walkSpeed;
+
+        this.GetComponent<Rigidbody>().AddForce(x, 0, z);
     }
 }
