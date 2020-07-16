@@ -12,6 +12,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
 
+    private bool key_W;
+    private bool key_A;
+    private bool key_S;
+    private bool key_D;
+
+    /*float x;
+    float z;*/
+
     public bool camera2Flag = false;
 
     GameObject soundManeger;
@@ -19,6 +27,10 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        key_W = false;
+        key_A = false;
+        key_S = false;
+        key_D = false;
         moveFlag = true;
         createItemUI.SetActive(false);
         soundManeger = GameObject.Find("SoundManager");
@@ -27,23 +39,36 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
             return;
         }
         else
         {
+            
             if (moveFlag == true)
             {
-                if (Input.GetKey(KeyCode.W))
+                
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    transform.Translate(Vector3.forward * walkSpeed * Time.deltaTime);
+                    key_W = true;
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if(Input.GetKeyUp(KeyCode.W))
                 {
-                    transform.Translate(Vector3.forward * -walkSpeed * Time.deltaTime);
+                    key_W = false;
                 }
-                if (Input.GetKey(KeyCode.D))
+
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    key_S = true;
+                }
+                else if(Input.GetKeyUp(KeyCode.S))
+                {
+                    key_S = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.D))
                 {
                     if (camera2Flag == true)
                     {
@@ -51,10 +76,17 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+                        key_D = true;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if(Input.GetKeyUp(KeyCode.D))
+                {
+                    if(camera2Flag == false)
+                    {
+                        key_D = false;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     if (camera2Flag == true)
                     {
@@ -62,16 +94,23 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
+                        key_A = true;
                     }
                 }
-
+                else if (Input.GetKeyUp(KeyCode.A))
+                {
+                    if(camera2Flag == false)
+                    {
+                        key_A = false;
+                    }
+                }
+                
                 if (camera2Flag == false)
                 {
                     transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
             }
-
+            
             if (Input.GetKeyDown("r") && CreateItem.craftFlag == false)
             {
                 gameUI.SetActive(!gameUI.activeSelf);
@@ -79,6 +118,71 @@ public class PlayerMove : MonoBehaviour
                 moveFlag = !moveFlag;
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 direction = new Vector3();
         
+        if(key_W == true || key_S == true)
+        {
+            if (key_W == true)
+            {
+                if (key_A == true || key_D == true)
+                {
+                    if (key_A == true)
+                    {
+                        direction += transform.forward * walkSpeed;
+                        direction += -transform.right * walkSpeed;
+                    }
+                    if (key_D == true)
+                    {
+                        direction += transform.forward * walkSpeed;
+                        direction += transform.right * walkSpeed;
+                    }
+                    direction = direction / Mathf.Sqrt(2.0f);
+                }
+                else if (key_A == false && key_D == false)
+                {
+                    direction += transform.forward * walkSpeed;
+                }
+            }
+            if (key_S == true)
+            {
+                if (key_A == true || key_D == true)
+                {
+                    if (key_A == true)
+                    {
+                        direction += -transform.forward * walkSpeed;
+                        direction += -transform.right * walkSpeed;
+                    }
+                    if (key_D == true)
+                    {
+                        direction += -transform.forward * walkSpeed;
+                        direction += transform.right * walkSpeed;
+                    }
+                    direction = direction / Mathf.Sqrt(2.0f);
+                }
+                else if (key_A == false && key_D == false)
+                {
+                    direction += -transform.forward * walkSpeed;
+                }
+            }
+        }
+        else if(key_W == false && key_S == false)
+        {
+            if (key_A == true)
+            {
+                direction += -transform.right * walkSpeed;
+            }
+            if (key_D == true)
+            {
+                direction += transform.right * walkSpeed;
+            }
+        }
+        
+
+        direction.y = Physics.gravity.y; 
+        this.GetComponent<Rigidbody>().velocity = direction;
     }
 }

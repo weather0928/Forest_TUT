@@ -18,10 +18,10 @@ public class EnemyChaser : MonoBehaviour
 
     //ターゲット（プレイヤー）を追うために使う変数
     [SerializeField] GameObject target;
-    [System.NonSerialized]public static bool inArea = false;
+    [System.NonSerialized]public static bool inArea;
     [SerializeField] float chaspeed = 0.05f;
     [SerializeField] Color origColor;
-    [System.NonSerialized]public static bool chaseSwitchFlag = false;
+    [System.NonSerialized]public static bool chaseSwitchFlag;
     [SerializeField]private float chaseStopTime;
     private float chaseSecond = 0f;
     private bool inPursuitFlag;
@@ -43,13 +43,16 @@ public class EnemyChaser : MonoBehaviour
     //罠にかかった時に使う変数など
     private float staleStopTime;
     private float staleSecond = 0f;
-    private bool staleFlag = false;
+    private bool staleFlag;
 
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
     void Start()
     {
+        inArea = false;
+        chaseSwitchFlag = false;
+        staleFlag = false;
         soundHeardFlag = false;
         inPursuitFlag = false;
         gameOverFlag = false;
@@ -160,7 +163,7 @@ public class EnemyChaser : MonoBehaviour
         if(other.gameObject.tag == "StaleItem")
         {
             GetComponent<NavMeshAgent>().isStopped = true; 
-            staleStopTime = other.gameObject.GetComponent<EnemyStaleItem>().stopTime;
+            staleStopTime = other.gameObject.GetComponent<EnemyStaleItem>().staleTime();
             staleFlag = true;
             Destroy(other.gameObject);
         }

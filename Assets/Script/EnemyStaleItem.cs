@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStaleItem : MonoBehaviour
 {
-    public float stopTime;
+    [SerializeField]private float stopTime;
 
     public float staleTime()
     {
