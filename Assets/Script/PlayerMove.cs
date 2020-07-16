@@ -39,15 +39,17 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
             return;
         }
         else
         {
+            
             if (moveFlag == true)
             {
-                /*
+                
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     key_W = true;
@@ -77,7 +79,7 @@ public class PlayerMove : MonoBehaviour
                         key_D = true;
                     }
                 }
-                else if(Input.GetKeyDown(KeyCode.D))
+                else if(Input.GetKeyUp(KeyCode.D))
                 {
                     if(camera2Flag == false)
                     {
@@ -101,14 +103,14 @@ public class PlayerMove : MonoBehaviour
                     {
                         key_A = false;
                     }
-                }*/
-
+                }
+                
                 if (camera2Flag == false)
                 {
                     transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
             }
-
+            
             if (Input.GetKeyDown("r") && CreateItem.craftFlag == false)
             {
                 gameUI.SetActive(!gameUI.activeSelf);
@@ -116,14 +118,71 @@ public class PlayerMove : MonoBehaviour
                 moveFlag = !moveFlag;
             }
         }
-        
     }
 
     private void FixedUpdate()
     {
-        float z = Input.GetAxis("Vertical") * walkSpeed;
-        float x = Input.GetAxis("Horizontal") * walkSpeed;
+        Vector3 direction = new Vector3();
+        
+        if(key_W == true || key_S == true)
+        {
+            if (key_W == true)
+            {
+                if (key_A == true || key_D == true)
+                {
+                    if (key_A == true)
+                    {
+                        direction += transform.forward * walkSpeed;
+                        direction += -transform.right * walkSpeed;
+                    }
+                    if (key_D == true)
+                    {
+                        direction += transform.forward * walkSpeed;
+                        direction += transform.right * walkSpeed;
+                    }
+                    direction = direction / Mathf.Sqrt(2.0f);
+                }
+                else if (key_A == false && key_D == false)
+                {
+                    direction += transform.forward * walkSpeed;
+                }
+            }
+            if (key_S == true)
+            {
+                if (key_A == true || key_D == true)
+                {
+                    if (key_A == true)
+                    {
+                        direction += -transform.forward * walkSpeed;
+                        direction += -transform.right * walkSpeed;
+                    }
+                    if (key_D == true)
+                    {
+                        direction += -transform.forward * walkSpeed;
+                        direction += transform.right * walkSpeed;
+                    }
+                    direction = direction / Mathf.Sqrt(2.0f);
+                }
+                else if (key_A == false && key_D == false)
+                {
+                    direction += -transform.forward * walkSpeed;
+                }
+            }
+        }
+        else if(key_W == false && key_S == false)
+        {
+            if (key_A == true)
+            {
+                direction += -transform.right * walkSpeed;
+            }
+            if (key_D == true)
+            {
+                direction += transform.right * walkSpeed;
+            }
+        }
+        
 
-        this.GetComponent<Rigidbody>().AddForce(x, 0, z);
+        direction.y = Physics.gravity.y; 
+        this.GetComponent<Rigidbody>().velocity = direction;
     }
 }
