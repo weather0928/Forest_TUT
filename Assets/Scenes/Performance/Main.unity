@@ -314,7 +314,7 @@ PrefabInstance:
     - target: {fileID: 6061628685413300628, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6061628685413300628, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 921207971}
+  OperationExplanationUI: {fileID: 0}
 --- !u!1 &415965321
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +647,7 @@ PrefabInstance:
     - target: {fileID: 6798472516544820222, guid: 3df166ed0058328459779e8c6fae8f32,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df166ed0058328459779e8c6fae8f32, type: 3}
@@ -864,7 +865,7 @@ RectTransform:
   - {fileID: 933623338}
   - {fileID: 1027276172}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1032,6 +1033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setCanvas: {fileID: 46870224}
   oldCanvas: {fileID: 921207971}
+  switchSound: {fileID: 0}
 --- !u!114 &933623340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,7 +1197,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937166956}
   m_CullTransparentMesh: 0
---- !u!1001 &949900504
+--- !u!1001 &938139186
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1205,7 +1207,7 @@ PrefabInstance:
     - target: {fileID: 4777810610642283752, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_Name
-      value: Area1 ver2
+      value: Area1 ver3
       objectReference: {fileID: 0}
     - target: {fileID: 5925629791614632097, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
@@ -1245,7 +1247,7 @@ PrefabInstance:
     - target: {fileID: 5925629791614632097, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5925629791614632097, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
@@ -1316,6 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd54df2044568444b493d461471ddd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchSound: {fileID: 0}
 --- !u!114 &1027276174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,6 +1993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setCanvas: {fileID: 921207971}
   oldCanvas: {fileID: 46870224}
+  switchSound: {fileID: 0}
 --- !u!114 &1766545985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2261,7 +2265,7 @@ PrefabInstance:
     - target: {fileID: 2549253386386465398, guid: d0043d21db4524449afd4956476ffc19,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2549253386386465398, guid: d0043d21db4524449afd4956476ffc19,
         type: 3}

@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4080118375841396068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -5.5}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4080118376939511398}
@@ -43,8 +43,8 @@ Camera:
   m_GameObject: {fileID: 4080118375841396068}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 4080118376939511420}
   - component: {fileID: 4080118376939511418}
   - component: {fileID: 11273840}
+  - component: {fileID: 178646532}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -336,7 +337,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4080118376939511418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,12 +350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40133e5cbf64bfd4ca8bad75376bc2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
+  walkSpeed: 10
   rotateSpeed: 90
   rotate_speed: 3
-  gameUI: {fileID: 6061628685413300624, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba, type: 3}
-  createItemUI: {fileID: 2549253386386465386, guid: d0043d21db4524449afd4956476ffc19,
-    type: 3}
+  gameUI: {fileID: 0}
+  createItemUI: {fileID: 0}
   camera2Flag: 0
 --- !u!114 &11273840
 MonoBehaviour:
@@ -368,3 +368,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8063adcda7679814490c644baa4b654d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &178646532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080118376939511423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c90514f8cbc5714d8f3ff73650bf096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUI: {fileID: 0}
+  OperationExplanationUI: {fileID: 0}

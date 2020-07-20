@@ -30,9 +30,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5375877103049028371}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -81.02954, y: 7.5, z: -48.791557}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 2.3, y: 2.6, z: 2.3}
   m_Children:
   - {fileID: 5375877103969952516}
   - {fileID: 5375877103799045261}
@@ -93,7 +93,7 @@ BoxCollider:
   m_GameObject: {fileID: 5375877103049028371}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1.9999999, z: 1.0000001}
   m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
@@ -122,9 +122,10 @@ AudioSource:
   m_GameObject: {fileID: 5375877103049028371}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243793043742694028, guid: ecbc80a755b0b1b43a9aa21411bbf871,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   points:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   foundPlayerVoice: {fileID: 8300000, guid: 2ec0b4559d9f58448885161fcf12facd, type: 3}
   target: {fileID: 0}
   chaspeed: 0
@@ -242,7 +244,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -297,7 +299,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5375877103799045258
 MonoBehaviour:
@@ -354,7 +356,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5375877103969952517
 MonoBehaviour:

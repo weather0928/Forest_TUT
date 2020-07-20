@@ -6,16 +6,11 @@ public class CanvasSwitch : MonoBehaviour
 {
     [SerializeField] GameObject setCanvas;
     [SerializeField] GameObject oldCanvas;
-    GameObject soundManeger;
-
-    private void Start()
-    {
-        soundManeger = GameObject.Find("SoundManager");
-    }
+    [SerializeField] AudioClip switchSound;
 
     public void OnClick()
     {
-        soundManeger.GetComponent<SoundManager>().PlaySeByName("button");
+        SoundManager.seAudioSource.PlayOneShot(switchSound);
         setCanvas.SetActive(true);
         oldCanvas.SetActive(false);
     }

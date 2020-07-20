@@ -9,12 +9,7 @@ public class ThrowItem : MonoBehaviour
     [SerializeField] ItemManeger itemManeger;
     [SerializeField] float throwPower = 10f;
     [SerializeField] GameObject throwPosition;
-    GameObject soundManeger;
-
-    private void Start()
-    {
-        soundManeger = GameObject.Find("SoundManager");
-    }
+    [SerializeField] AudioClip throwSound;
 
     // Update is called once per frame
     void Update()
@@ -33,7 +28,7 @@ public class ThrowItem : MonoBehaviour
                     {
                         GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
                         createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
-                        soundManeger.GetComponent<SoundManager>().PlaySeByName("throw");
+                        SoundManager.seAudioSource.PlayOneShot(throwSound);
 
                         itemManeger.numOfItem[throwItemData] -= 1;
                     }
