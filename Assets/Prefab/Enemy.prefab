@@ -226,14 +226,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  foundPlayerVoice: {fileID: 8300000, guid: 2ec0b4559d9f58448885161fcf12facd, type: 3}
-  target: {fileID: 0}
+  foundPlayerVoice: {fileID: 8300000, guid: 941d0dd195aa84447bc624e49825567c, type: 3}
+  target: {fileID: 4080118376939511423, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
   chaspeed: 0
   origColor: {r: 1, g: 1, b: 1, a: 1}
   chaseStopTime: 5
   soundHeardVoice: {fileID: 8300000, guid: 1073358ebbd75d541b0b28cbf0953269, type: 3}
   soundStopTime: 5
-  blameVoice: {fileID: 8300000, guid: ca9ccb3666e4d354690b3bd0548154ff, type: 3}
+  blameVoice: {fileID: 8300000, guid: 8f381f9e0eb28b24e91db76e22d9e9c6, type: 3}
 --- !u!195 &5375877103049028382
 NavMeshAgent:
   m_ObjectHideFlags: 0
