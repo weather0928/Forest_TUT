@@ -5,17 +5,12 @@ using UnityEngine;
 public class GameExit : MonoBehaviour
 {
 
-    GameObject soundManeger;
-
-    private void Start()
-    {
-        soundManeger = GameObject.Find("SoundManager");
-    }
+    [SerializeField] AudioClip switchSound;
 
     public void EndGame()
     {
 
-        soundManeger.GetComponent<SoundManager>().PlaySeByName("button");
+        SoundManager.seAudioSource.PlayOneShot(switchSound);
 
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

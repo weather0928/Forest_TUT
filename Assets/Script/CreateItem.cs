@@ -14,18 +14,16 @@ public class CreateItem : MonoBehaviour
     [SerializeField] private Color origColor;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject slider;
+    [SerializeField] private AudioClip createSound;
     private float seconds;
     int hammerRemainingUses;
     [System.NonSerialized] public static bool craftFlag;
     [System.NonSerialized] public static bool createStartFlag;
 
-    GameObject soundManeger;
-
     private void Start()
     {
         createStartFlag = false;
         slider.SetActive(false);
-        soundManeger = GameObject.Find("SoundManager");
     }
 
     private void Update()
@@ -49,7 +47,7 @@ public class CreateItem : MonoBehaviour
                     {
                         slider.GetComponent<Slider>().maxValue = stopTime;
                     }
-                    soundManeger.GetComponent<SoundManager>().PlaySeByName("3konngou");
+                    SoundManager.seAudioSource.PlayOneShot(createSound);
                     createStartFlag = false;
                 }
                 slider.GetComponent<Slider>().value = seconds;
@@ -90,7 +88,7 @@ public class CreateItem : MonoBehaviour
         {
             hammerRemainingUses = hammerUse;
         }
-        soundManeger.GetComponent<SoundManager>().StopSe();
+        SoundManager.seAudioSource.Stop();
         craftFlag = false;
         SoundJudge.soundFlag = false;
         seconds = 0.0f;
