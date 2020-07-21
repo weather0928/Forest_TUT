@@ -19,6 +19,9 @@ public class CreateItem : MonoBehaviour
     int hammerRemainingUses;
     [System.NonSerialized] public static bool craftFlag;
     [System.NonSerialized] public static bool createStartFlag;
+    [SerializeField] GameObject gameUI;
+    [SerializeField] GameObject cameraControllor;
+    [SerializeField] GameObject normalCamera;
 
     private void Start()
     {
@@ -48,6 +51,8 @@ public class CreateItem : MonoBehaviour
                         slider.GetComponent<Slider>().maxValue = stopTime;
                     }
                     SoundManager.seAudioSource.PlayOneShot(createSound);
+                    cameraControllor.SetActive(true);
+                    normalCamera.SetActive(false);
                     createStartFlag = false;
                 }
                 slider.GetComponent<Slider>().value = seconds;
@@ -94,9 +99,13 @@ public class CreateItem : MonoBehaviour
         seconds = 0.0f;
         this.GetComponent<CanvasGroup>().alpha = 1;
         this.GetComponent<CanvasGroup>().interactable = true;
-        Debug.Log(itemManeger.numOfItem[craftItemDate]);
         player.GetComponent<Renderer>().material.color = origColor;
         slider.SetActive(false);
+        PlayerMove.moveFlag = true;
+        this.gameObject.SetActive(false);
+        cameraControllor.SetActive(false);
+        normalCamera.SetActive(true);
+        gameUI.SetActive(true);
     }
 }
 
