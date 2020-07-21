@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6061628683792138659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -86,14 +86,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951603dc09c376e449d8ba6c0032fe48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladderCheck: {fileID: 4080118376939511423, guid: baf02f6aaead21e49a5b1949b50680e6,
-    type: 3}
-  itemManeger: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
-    type: 3}
+  ladderCheck: {fileID: 0}
+  itemManeger: {fileID: 0}
   ladderDate: {fileID: 11400000, guid: 30f1b8258abf45046ba897ffe08e9a75, type: 2}
-  ladderObject: {fileID: 106002643337880101, guid: dc2a9ad078351ce43a5caa114ed50895,
+  ladderObject: {fileID: 6256306288251136253, guid: 315345a6f67e9e74282c078f95141529,
     type: 3}
-  player: {fileID: 4080118376939511423, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
+  player: {fileID: 0}
 --- !u!1 &6061628684070881740
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6061628684070881745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -182,9 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setItemData: {fileID: 11400000, guid: dc522d715745c1440bf185ef5e390f54, type: 2}
   setItem: {fileID: 1236662602618464746, guid: 2e6b9a3bb700fbf48b06195f133435ea, type: 3}
-  itemManeger: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
-    type: 3}
-  player: {fileID: 4080118376939511423, guid: baf02f6aaead21e49a5b1949b50680e6, type: 3}
+  itemManeger: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &6061628684165138087
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6061628684215673852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -351,10 +348,10 @@ MonoBehaviour:
   throwItemData: {fileID: 11400000, guid: 0974136e8ec49f740b819258b1ea7d25, type: 2}
   throwItem: {fileID: 4346974018117629892, guid: 8fb6a8c07b2e0ca45906ee679e1eda29,
     type: 3}
-  itemManeger: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
-    type: 3}
-  throwPower: 7
+  itemManeger: {fileID: 0}
+  throwPower: 3
   throwPosition: {fileID: 0}
+  throwSound: {fileID: 0}
 --- !u!1 &6061628684427893920
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6061628685413300628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -696,8 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1496968a46751c34097d62318365fa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemManeger: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
-    type: 3}
+  itemManeger: {fileID: 0}
   nonItemUI: {fileID: 6061628684427893920}
   useItemDate:
   - itemUI: {fileID: 6061628683792138656}

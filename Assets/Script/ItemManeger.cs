@@ -10,12 +10,20 @@ public class ItemManeger : MonoBehaviour
     //　アイテム数管理
     public Dictionary<Item, int> numOfItem = new Dictionary<Item, int>();
 
+    [SerializeField] bool testFlag;
+    [SerializeField] Item testItem;
+
+
     void Start()
     {
         for (int i = 0; i < itemDataBase.GetItemLists().Count; i++)
         {
             //　アイテム数を初期化
             numOfItem.Add(itemDataBase.GetItemLists()[i], 0);
+        }
+        if(testFlag == true)
+        {
+            numOfItem[testItem] += 100;
         }
     }
 
