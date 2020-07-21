@@ -1,33 +1,15 @@
 fileFormatVersion: 2
-guid: a8d63ed14b5e36d499e5bbdc52dc72c0
+guid: 98deaeb6a91d1e042bcba8d48228fc45
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Wood
-    100004: Yarn
     400000: //RootNode
-    400002: Wood
-    400004: Yarn
-    2100000: Wood1
-    2100002: Yarn2
-    2300000: Wood
-    2300002: Yarn
-    3300000: Wood
-    3300002: Yarn
-    4300000: Wood
-    4300002: Yarn
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood1
-    second: {fileID: 2100000, guid: 46ec1b4757dd6354a8a5b5fd82bc312c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Yarn2
-    second: {fileID: 2100000, guid: 0acedcf7e9d7ff64f957e6fab3d5a824, type: 2}
+    2100000: Himo
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Himo1
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -58,7 +40,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
