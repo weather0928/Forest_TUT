@@ -1237,6 +1237,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781186234}
   m_CullTransparentMesh: 0
+--- !u!1 &815229154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 815229155}
+  m_Layer: 0
+  m_Name: GameManeger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &815229155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815229154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.717113, y: 0.0628652, z: -2.1884065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &815976824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1698,6 +1728,11 @@ PrefabInstance:
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
+    - target: {fileID: 570239886133085176, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
     - target: {fileID: 780952341893255376, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
@@ -1708,17 +1743,57 @@ PrefabInstance:
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
+    - target: {fileID: 1038576764018990130, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038576764018990130, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038576764018990130, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1183380693345044692, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
+    - target: {fileID: 1561963365700918947, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
+    - target: {fileID: 1567980687896959018, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1567980687896959018, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1807177644649712890, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
     - target: {fileID: 1863071830223636541, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
+    - target: {fileID: 2090148653320188352, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
+    - target: {fileID: 2241263198438520807, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
       value: 
@@ -1753,11 +1828,31 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4646353055329229627, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4646353055329229627, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4777810610642283752, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_Name
       value: Area1 ver3
       objectReference: {fileID: 0}
+    - target: {fileID: 4787996317893462826, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
+    - target: {fileID: 5142815460089427086, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
     - target: {fileID: 5228727727179349240, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
@@ -1853,6 +1948,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7532203922166987575, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
     - target: {fileID: 8179046173396057911, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
@@ -1863,12 +1963,22 @@ PrefabInstance:
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
+    - target: {fileID: 8396869002967571580, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
     - target: {fileID: 8927374599641947178, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
     - target: {fileID: 8952383854369507094, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
+    - target: {fileID: 8985730094529254133, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: itemManeger
       value: 
