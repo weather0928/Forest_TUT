@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    private bool ladderFlag;
+    [System.NonSerialized] public bool ladderFlag;
     private bool upFlag;
     private bool downFlag;
     Rigidbody player;
@@ -53,32 +53,16 @@ public class Ladder : MonoBehaviour
 
     private void OnCollisionStay(Collision other)
     {
-        if (other.gameObject.tag == "Player" && ladderFlag == false)
+        if (other.gameObject.tag == "Player")
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                PlayerMove.moveFlag = false;
-                ladderFlag = true;
-                player = other.gameObject.GetComponent<Rigidbody>();
-            }
-        }
-        else if(other.gameObject.tag == "Player" && ladderFlag == true)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                PlayerMove.moveFlag = true;
-                player = null;
-                upFlag = false;
-                downFlag = false;
-                ladderFlag = false;
-            }
+            ladderFlag = true;
+            player = other.gameObject.GetComponent<Rigidbody>();
         }
     }
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.tag == "Player" && ladderFlag == true)
         {
-            PlayerMove.moveFlag = true;
             player = null;
             upFlag = false;
             downFlag = false;

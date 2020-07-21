@@ -11,12 +11,17 @@ public class LadderCheck : MonoBehaviour
         RayCheck();
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        LadderSet.ladderRotetion = other.transform.rotation;
+    }
+
     private void RayCheck()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        float distance = 0.3f;
+        float distance = 0.2f;
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 0.1f,false);
 
@@ -26,7 +31,6 @@ public class LadderCheck : MonoBehaviour
             {
                 ladderCheckFlag = true;
                 LadderSet.ladderPosition = hit.point;
-                LadderSet.ladderSetObject = hit.transform;
             }
             else
             {
@@ -38,6 +42,6 @@ public class LadderCheck : MonoBehaviour
             ladderCheckFlag = false;
         }
 
-        Debug.Log(ladderCheckFlag);
+        //Debug.Log(ladderCheckFlag);
     }
 }

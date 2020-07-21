@@ -1301,35 +1301,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1517515600279489421, guid: 2389f95729d189e45b576646ab054d61,
+    - target: {fileID: 2716871924811092529, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_TagString
       value: LadderSetOK
       objectReference: {fileID: 0}
-    - target: {fileID: 4600633031809892934, guid: 2389f95729d189e45b576646ab054d61,
+    - target: {fileID: 2856500094175343006, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_TagString
       value: LadderSetOK
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360924876627090655, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_TagString
+      value: LadderSetOK
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933053524687191686, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4777810610642283752, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_Name
       value: Area1 ver3
       objectReference: {fileID: 0}
-    - target: {fileID: 4928152181271519920, guid: 2389f95729d189e45b576646ab054d61,
+    - target: {fileID: 5579580293870003038, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
-      propertyPath: m_TagString
-      value: LadderSetOK
-      objectReference: {fileID: 0}
-    - target: {fileID: 5832061932680032993, guid: 2389f95729d189e45b576646ab054d61,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5832061932680032999, guid: 2389f95729d189e45b576646ab054d61,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5925629791614632097, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
@@ -1386,12 +1386,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6756489035310025724, guid: 2389f95729d189e45b576646ab054d61,
+    - target: {fileID: 6552593154779095707, guid: 2389f95729d189e45b576646ab054d61,
         type: 3}
       propertyPath: m_TagString
       value: LadderSetOK
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7274478128422510892, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274478128422510892, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159838547709691988, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159838547709691988, guid: 2389f95729d189e45b576646ab054d61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5227971989364058198, guid: 2389f95729d189e45b576646ab054d61, type: 3}
+    - {fileID: 2229156656417165169, guid: 2389f95729d189e45b576646ab054d61, type: 3}
+    - {fileID: 4610888833173235065, guid: 2389f95729d189e45b576646ab054d61, type: 3}
+    - {fileID: 4782992487230510155, guid: 2389f95729d189e45b576646ab054d61, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2389f95729d189e45b576646ab054d61, type: 3}
 --- !u!1 &1435772259
 GameObject:
@@ -1637,11 +1661,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6061628683792138656, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6061628683792138660, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
       propertyPath: ladderCheck
@@ -1649,24 +1668,14 @@ PrefabInstance:
       objectReference: {fileID: 178646533}
     - target: {fileID: 6061628683792138660, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 178646530}
-    - target: {fileID: 6061628683792138660, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
     - target: {fileID: 6061628683792138660, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
-      propertyPath: ladderObject
+      propertyPath: player
       value: 
-      objectReference: {fileID: 100000, guid: 60d53dbf1bdaba24780de4f9fb734dda, type: 3}
-    - target: {fileID: 6061628684070881740, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 178646530}
     - target: {fileID: 6061628684070881744, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
       propertyPath: itemManeger
@@ -1677,35 +1686,20 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 178646530}
-    - target: {fileID: 6061628684215673851, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
+    - target: {fileID: 6061628684215673855, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: itemManeger
+      value: 
+      objectReference: {fileID: 1759339309}
     - target: {fileID: 6061628684215673855, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
       propertyPath: throwPosition
       value: 
       objectReference: {fileID: 993053824}
-    - target: {fileID: 6061628684215673855, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: itemManeger
-      value: 
-      objectReference: {fileID: 1759339309}
-    - target: {fileID: 6061628684215673855, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: throwPower
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6061628685413300624, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
       propertyPath: m_Name
       value: GameUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6061628685413300624, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6061628685413300628, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
         type: 3}
@@ -1817,24 +1811,6 @@ PrefabInstance:
       propertyPath: itemManeger
       value: 
       objectReference: {fileID: 1759339309}
-    - target: {fileID: 6061628685413300631, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: useItemDate.Array.data[0].itemDate
-      value: 
-      objectReference: {fileID: 11400000, guid: 30f1b8258abf45046ba897ffe08e9a75,
-        type: 2}
-    - target: {fileID: 6061628685413300631, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: useItemDate.Array.data[1].itemDate
-      value: 
-      objectReference: {fileID: 11400000, guid: 0974136e8ec49f740b819258b1ea7d25,
-        type: 2}
-    - target: {fileID: 6061628685413300631, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba,
-        type: 3}
-      propertyPath: useItemDate.Array.data[2].itemDate
-      value: 
-      objectReference: {fileID: 11400000, guid: dc522d715745c1440bf185ef5e390f54,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1f79e2fcf8f6384c8bd1e9e2e4a3aba, type: 3}
 --- !u!1001 &1676169007

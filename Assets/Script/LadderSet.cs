@@ -10,7 +10,7 @@ public class LadderSet : MonoBehaviour
     [SerializeField] GameObject ladderObject;
     [SerializeField] GameObject player;
     [System.NonSerialized] public static Vector3 ladderPosition;
-    [System.NonSerialized] public static Transform ladderSetObject;
+    [System.NonSerialized] public static Quaternion ladderRotetion;
 
     private void Update()
     {
@@ -18,26 +18,26 @@ public class LadderSet : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                Vector3 setPosition = ladderPosition;
-                //setPosition.y += (ladderObject.transform.localScale.y / 2.0f) - 0.2f;
-                GameObject createLadder = Instantiate(ladderObject, ladderPosition,Quaternion.identity);
-                createLadder.transform.LookAt(ladderSetObject);
-                if(createLadder.transform.rotation.y >= 0 && createLadder.transform.rotation.y < 90)
+                GameObject createLadder = Instantiate(ladderObject, ladderPosition,ladderRotetion);
+                Vector3 pos = createLadder.transform.position;
+                Debug.Log((int)createLadder.transform.localEulerAngles.y);
+                if ((int)createLadder.transform.localEulerAngles.y == 0)
                 {
-                    createLadder.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    pos.z -= 0.03f;
                 }
-                else if (createLadder.transform.rotation.y >= 90 && createLadder.transform.rotation.y < 180)
+                else if((int)createLadder.transform.localEulerAngles.y == 90)
                 {
-                    createLadder.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    pos.x -= 0.03f;
                 }
-                else if (createLadder.transform.rotation.y >= 180 && createLadder.transform.rotation.y < 270)
+                else if ((int)createLadder.transform.localEulerAngles.y == 180)
                 {
-                    createLadder.transform.rotation = Quaternion.Euler(0, 270, 0);
+                    pos.z += 0.03f;
                 }
-                else if (createLadder.transform.rotation.y >= 270 && createLadder.transform.rotation.y < 360)
+                else if ((int)createLadder.transform.localEulerAngles.y == 270)
                 {
-                    createLadder.transform.rotation = Quaternion.Euler(0, 360, 0);
+                    pos.x += 0.03f;
                 }
+                createLadder.transform.position = pos;
                 itemManeger.numOfItem[ladderDate] -= 1;
             }
         }
