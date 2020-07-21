@@ -8,8 +8,7 @@ public class CameraControl2 : MonoBehaviour
     [SerializeField]float angleUp = 60f;
     [SerializeField]float angleDown = -60f;
 
-    //ユニティちゃんをInspectorで入れる
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject normalCamera;
     //Main CameraをInspectorで入れる
     [SerializeField] Camera cam;
 
@@ -21,15 +20,21 @@ public class CameraControl2 : MonoBehaviour
     void Start()
     {
         //CameraのAxisに相対的な位置をlocalPositionで指定
-        cam.transform.localPosition = new Vector3(0, 0, -3);
+        //cam.transform.localPosition = new Vector3(0, 0, -3);
         //CameraとAxisの向きを最初だけそろえる
         cam.transform.localRotation = transform.rotation;
     }
 
     void Update()
     {
-        //Axisの位置をユニティちゃんの位置＋axisPosで決める
-        transform.position = player.transform.position + axisPos;
+
+        if (Mathf.Approximately(Time.timeScale, 0f))
+        {
+            return;
+        }
+
+        Debug.Log(normalCamera.transform.position);
+        transform.position = normalCamera.transform.position;
         //三人称の時のCameraの位置にマウススクロールの値を足して位置を調整
         //thirdPosAdd = thirdPos + new Vector3(0, 0, scrollLog);
 

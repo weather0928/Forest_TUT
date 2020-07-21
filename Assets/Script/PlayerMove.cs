@@ -111,7 +111,7 @@ public class PlayerMove : MonoBehaviour
                 }
             }
             
-            if (Input.GetKeyDown("r") && CreateItem.craftFlag == false)
+            if (Input.GetKeyDown(KeyCode.R) && CreateItem.craftFlag == false)
             {
                 gameUI.SetActive(!gameUI.activeSelf);
                 createItemUI.SetActive(!createItemUI.activeSelf);
