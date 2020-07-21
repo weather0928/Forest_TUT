@@ -19,7 +19,10 @@ public class LadderSet : MonoBehaviour
             {
                 Vector3 setPosition = ladderPosition;
                 setPosition.y += (ladderObject.transform.localScale.y / 2.0f) - 0.2f;
-                GameObject createLadder = Instantiate(ladderObject, setPosition, player.transform.rotation);
+                Vector3 ladderRotetion;
+                //if(player.transform.rotation.y)
+                //ladderRotetion = new Vector3
+                //GameObject createLadder = Instantiate(ladderObject, setPosition, player.transform.rotation);
                 itemManeger.numOfItem[ladderDate] -= 1;
             }
         }

@@ -13,12 +13,15 @@ public class LadderCheck : MonoBehaviour
 
     private void RayCheck()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, transform.position + transform.forward);
+        //ray.direction = ray.direction * 0.3f;
         RaycastHit hit;
+
+        Debug.Log(ray.direction);
 
         int distance = 1;
 
-        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
+        Debug.DrawLine(ray.origin, transform.forward, Color.red);
 
         if (Physics.Raycast(ray,out hit,distance))
         {
