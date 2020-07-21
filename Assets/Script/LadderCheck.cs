@@ -13,23 +13,31 @@ public class LadderCheck : MonoBehaviour
 
     private void RayCheck()
     {
-        Ray ray = new Ray(transform.position, transform.position + transform.forward);
-        //ray.direction = ray.direction * 0.3f;
+        Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        Debug.Log(ray.direction);
+        float distance = 0.3f;
 
-        int distance = 1;
+        Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 0.1f,false);
 
-        Debug.DrawLine(ray.origin, transform.forward, Color.red);
-
-        if (Physics.Raycast(ray,out hit,distance))
+        if (Physics.Raycast(ray,out hit,distance) == true)
         {
             if(hit.collider.tag == "LadderSetOK")
             {
                 ladderCheckFlag = true;
                 LadderSet.ladderPosition = hit.point;
+                LadderSet.ladderSetObject = hit.transform;
+            }
+            else
+            {
+                ladderCheckFlag = false;
             }
         }
+        else
+        {
+            ladderCheckFlag = false;
+        }
+
+        Debug.Log(ladderCheckFlag);
     }
 }
