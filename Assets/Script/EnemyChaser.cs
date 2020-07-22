@@ -45,6 +45,8 @@ public class EnemyChaser : MonoBehaviour
     private float staleSecond = 0f;
     private bool staleFlag;
 
+    [SerializeField] AudioSource walkAudioSourece;
+
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
@@ -107,8 +109,9 @@ public class EnemyChaser : MonoBehaviour
 
             if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false) //エリア内にいて、かつ「生存」状態の時
             {
-                if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == false)
+                if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up, 9) == false && inPursuitFlag == false)
                 {
+                    
                     agent.destination = target.transform.position;
                     audioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
@@ -116,14 +119,14 @@ public class EnemyChaser : MonoBehaviour
                     chaseSecond = 0f;
                     inPursuitFlag = true;
                 }
-                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == false && inPursuitFlag == true)
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up,9) == false && inPursuitFlag == true)
                 {
                     agent.destination = target.transform.position;
                     EneChasing();
                     GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                     chaseSecond = 0f;
                 }
-                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up) == true)
+                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up,9) == true)
                 {
                     chaseSecond += Time.deltaTime;
                     GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
@@ -141,6 +144,16 @@ public class EnemyChaser : MonoBehaviour
                 GetComponent<Renderer>().material.color = origColor;
                 GotoNextPoint();
                 chaseSwitchFlag = false;
+            }
+
+            if(staleFlag == true)
+            {
+                staleSecond += Time.deltaTime;
+                if(staleSecond >= staleStopTime)
+                {
+                    agent.isStopped = false;
+                    staleFlag = false;
+                }
             }
         }
     }
@@ -162,8 +175,9 @@ public class EnemyChaser : MonoBehaviour
         }
         if(other.gameObject.tag == "StaleItem")
         {
-            GetComponent<NavMeshAgent>().isStopped = true; 
+            agent.isStopped = true; 
             staleStopTime = other.gameObject.GetComponent<EnemyStaleItem>().staleTime();
+            staleSecond = 0f;
             staleFlag = true;
             Destroy(other.gameObject);
         }
@@ -173,7 +187,8 @@ public class EnemyChaser : MonoBehaviour
     {
         if (points.Length == 0)
             return;
-
+        walkAudioSourece.pitch = 1;
+        walkAudioSourece.Play();
         agent.destination = points[destPoint].position;
         destPoint = (destPoint + 1) % points.Length;
     }
@@ -181,5 +196,6 @@ public class EnemyChaser : MonoBehaviour
     public void EneChasing() //ターゲット（プレイヤー）を追う処理
     {
         transform.position += transform.forward * chaspeed;
+        walkAudioSourece.pitch = 1.5f;
     }
 }
