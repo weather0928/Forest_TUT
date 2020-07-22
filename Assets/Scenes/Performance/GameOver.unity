@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd54df2044568444b493d461471ddd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchSound: {fileID: 8300000, guid: 4cea7c015e0e2da4bb110c2862cd08c8, type: 3}
 --- !u!114 &195552854
 MonoBehaviour:
   m_ObjectHideFlags: 0
