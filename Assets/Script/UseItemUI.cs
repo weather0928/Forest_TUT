@@ -34,6 +34,10 @@ public class UseItemUI : MonoBehaviour
         ladderUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         bellUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         trapUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        ladderSet.enabled = false;
+        throwItem.enabled = false;
+        staleItemSet.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -51,21 +55,36 @@ public class UseItemUI : MonoBehaviour
             throwItem.enabled = false;
             staleItemSet.enabled = false;
         }
-        else if(itemManeger.numOfItem[bellDate] >= 1 && Input.GetKeyDown(KeyCode.Alpha2))
+        else if(itemManeger.numOfItem[ladderDate] == 0)
+        {
+            ladderSet.enabled = false;
+            ladderUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        }
+        if(itemManeger.numOfItem[bellDate] >= 1 && Input.GetKeyDown(KeyCode.Alpha2))
         {
             ImageAlpha(bellUI,ladderUI, trapUI);
             ladderSet.enabled = false;
             throwItem.enabled = true;
             staleItemSet.enabled = false;
         }
-        else if(itemManeger.numOfItem[trapDate] >= 1 && Input.GetKeyDown(KeyCode.Alpha3))
+        else if (itemManeger.numOfItem[bellDate] == 0)
+        {
+            throwItem.enabled = false;
+            bellUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        }
+        if (itemManeger.numOfItem[trapDate] >= 1 && Input.GetKeyDown(KeyCode.Alpha3))
         {
             ImageAlpha(trapUI,ladderUI,bellUI);
             ladderSet.enabled = false;
             throwItem.enabled = false;
             staleItemSet.enabled = true;
         }
-        
+        else if (itemManeger.numOfItem[trapDate] == 0)
+        {
+            staleItemSet.enabled = false;
+            trapUI.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        }
+
     }
 
     private void ImageAlpha(GameObject useItem,GameObject nonUseItem1,GameObject nonUseItem2)
