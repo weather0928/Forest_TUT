@@ -11,6 +11,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject gameUI;
     [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
+    [SerializeField] AudioSource walkAudioSoure;
+
+    [SerializeField] Animator playerAni;
 
     private bool key_W;
     private bool key_A;
@@ -50,25 +53,35 @@ public class PlayerMove : MonoBehaviour
             if (moveFlag == true)
             {
                 
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKey(KeyCode.W))
                 {
                     key_W = true;
+                    if (walkAudioSoure.isPlaying == false)
+                    {
+                        walkAudioSoure.Play();
+                        //playerAni.SetBool("Run", true);
+                    }
                 }
-                else if(Input.GetKeyUp(KeyCode.W))
+                else
                 {
                     key_W = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.S))
+                if (Input.GetKey(KeyCode.S))
                 {
                     key_S = true;
+                    if (walkAudioSoure.isPlaying == false)
+                    {
+                        walkAudioSoure.Play();
+                    }
                 }
-                else if(Input.GetKeyUp(KeyCode.S))
+                else
                 {
                     key_S = false;
+
                 }
 
-                if (Input.GetKeyDown(KeyCode.D))
+                if (Input.GetKey(KeyCode.D))
                 {
                     if (camera2Flag == true)
                     {
@@ -77,16 +90,20 @@ public class PlayerMove : MonoBehaviour
                     else
                     {
                         key_D = true;
+                        if (walkAudioSoure.isPlaying == false)
+                        {
+                            walkAudioSoure.Play();
+                        }
                     }
                 }
-                else if(Input.GetKeyUp(KeyCode.D))
+                else
                 {
                     if(camera2Flag == false)
                     {
                         key_D = false;
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.A))
+                if (Input.GetKey(KeyCode.A))
                 {
                     if (camera2Flag == true)
                     {
@@ -95,14 +112,24 @@ public class PlayerMove : MonoBehaviour
                     else
                     {
                         key_A = true;
+                        if (walkAudioSoure.isPlaying == false)
+                        {
+                            walkAudioSoure.Play();
+                        }
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.A))
+                else
                 {
                     if(camera2Flag == false)
                     {
                         key_A = false;
                     }
+                }
+
+                if(key_W == false && key_A == false && key_S == false && key_D == false)
+                {
+                    walkAudioSoure.Stop();
+                    playerAni.SetBool("Run", false);
                 }
                 
                 if (camera2Flag == false)
@@ -128,6 +155,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (key_W == true)
             {
+                playerAni.SetBool("Run", true);
                 if (key_A == true || key_D == true)
                 {
                     if (key_A == true)

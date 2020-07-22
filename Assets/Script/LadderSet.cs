@@ -20,22 +20,22 @@ public class LadderSet : MonoBehaviour
             {
                 GameObject createLadder = Instantiate(ladderObject, ladderPosition,ladderRotetion);
                 Vector3 pos = createLadder.transform.position;
-                Debug.Log((int)createLadder.transform.localEulerAngles.y);
+                pos.y += 0.16f;
                 if ((int)createLadder.transform.localEulerAngles.y == 0)
                 {
-                    pos.z -= 0.03f;
+                    pos.z -= 0.016f;
                 }
                 else if((int)createLadder.transform.localEulerAngles.y == 90)
                 {
-                    pos.x -= 0.03f;
+                    pos.x -= 0.016f;
                 }
                 else if ((int)createLadder.transform.localEulerAngles.y == 180)
                 {
-                    pos.z += 0.03f;
+                    pos.z += 0.016f;
                 }
                 else if ((int)createLadder.transform.localEulerAngles.y == 270)
                 {
-                    pos.x += 0.03f;
+                    pos.x += 0.016f;
                 }
                 createLadder.transform.position = pos;
                 itemManeger.numOfItem[ladderDate] -= 1;

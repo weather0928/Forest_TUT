@@ -7,13 +7,15 @@ public class MterialItem : MonoBehaviour
     [SerializeField] private Item itemDate;
     [SerializeField] private int getItemNumber = 1;
     [SerializeField] private ItemManeger itemManeger;
+    //[SerializeField] private AudioClip itemGetSound;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             itemManeger.numOfItem[itemDate] += getItemNumber;
-            Debug.Log(itemManeger.numOfItem[itemDate]);
+            //SoundManager.seAudioSource.PlayOneShot(itemGetSound);
+            //Debug.Log(itemManeger.numOfItem[itemDate]);
             Destroy(this.gameObject);
         }
     }

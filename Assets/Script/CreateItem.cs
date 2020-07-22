@@ -22,6 +22,7 @@ public class CreateItem : MonoBehaviour
     [SerializeField] GameObject gameUI;
     [SerializeField] GameObject cameraControllor;
     [SerializeField] GameObject normalCamera;
+    [SerializeField] Animator playerAni;
 
     private void Start()
     {
@@ -54,6 +55,7 @@ public class CreateItem : MonoBehaviour
                     cameraControllor.SetActive(true);
                     normalCamera.SetActive(false);
                     createStartFlag = false;
+                    playerAni.SetBool("Create", true);
                 }
                 slider.GetComponent<Slider>().value = seconds;
                 SoundJudge.soundFlag = true;
@@ -106,6 +108,7 @@ public class CreateItem : MonoBehaviour
         cameraControllor.SetActive(false);
         normalCamera.SetActive(true);
         gameUI.SetActive(true);
+        playerAni.SetBool("Create", false);
     }
 }
 
