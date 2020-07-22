@@ -61,7 +61,7 @@ public class CreateItem : MonoBehaviour
                 SoundJudge.soundFlag = true;
                 SoundJudge.soundPoint = player.transform.position;
                 seconds += Time.deltaTime;
-                player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
+                //player.GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                 Debug.Log(seconds);
                 this.GetComponent<CanvasGroup>().alpha = 0;
                 this.GetComponent<CanvasGroup>().interactable = false;
@@ -101,7 +101,7 @@ public class CreateItem : MonoBehaviour
         seconds = 0.0f;
         this.GetComponent<CanvasGroup>().alpha = 1;
         this.GetComponent<CanvasGroup>().interactable = true;
-        player.GetComponent<Renderer>().material.color = origColor;
+        //player.GetComponent<Renderer>().material.color = origColor;
         slider.SetActive(false);
         PlayerMove.moveFlag = true;
         this.gameObject.SetActive(false);
