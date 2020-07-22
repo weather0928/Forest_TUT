@@ -33,10 +33,11 @@ public class CameraControl2 : MonoBehaviour
             return;
         }
 
-        Debug.Log(normalCamera.transform.position);
         transform.position = normalCamera.transform.position;
-        //三人称の時のCameraの位置にマウススクロールの値を足して位置を調整
-        //thirdPosAdd = thirdPos + new Vector3(0, 0, scrollLog);
+        if(CreateItem.createStartFlag == true)
+        {
+            transform.rotation = normalCamera.transform.rotation;
+        }
 
         //Cameraの角度にマウスからとった値を入れる
         transform.eulerAngles += new Vector3(

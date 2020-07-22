@@ -17,11 +17,13 @@ public class Pause : MonoBehaviour
                 if (!pauseUI.activeSelf)
                 {
                     pauseUI.SetActive(true);
+                    SoundManager.seAudioSource.Pause();
                     Time.timeScale = 0f;
                 }
                 else
                 {
                     pauseUI.SetActive(false);
+                    SoundManager.seAudioSource.UnPause();
                     Time.timeScale = 1f;
                 }
             }

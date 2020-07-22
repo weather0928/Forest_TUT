@@ -18,7 +18,9 @@ public class LadderCheck : MonoBehaviour
 
     private void RayCheck()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        Vector3 rayPosition = transform.position;
+        rayPosition += new Vector3(0, 0.05f, 0);
+        Ray ray = new Ray(rayPosition, transform.forward);
         RaycastHit hit;
 
         float distance = 0.2f;
@@ -42,6 +44,6 @@ public class LadderCheck : MonoBehaviour
             ladderCheckFlag = false;
         }
 
-        //Debug.Log(ladderCheckFlag);
+        Debug.Log(ladderCheckFlag);
     }
 }
