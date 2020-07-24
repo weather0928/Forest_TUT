@@ -20,12 +20,15 @@ public class ThrowItem : MonoBehaviour
         }
         else
         {
-            if (PlayerMove.moveFlag == true)
+            if (FirstPersonView.moveFlag == true)
             {
+                Debug.Log("動け3");
                 if (Input.GetMouseButtonDown(0))
                 {
+                    Debug.Log("動け2");
                     if (itemManeger.numOfItem[throwItemData] >= 1)
                     {
+                        Debug.Log("動け");
                         GameObject createThrowItem = Instantiate(throwItem, throwPosition.transform.position, transform.rotation);
                         createThrowItem.GetComponent<Rigidbody>().AddForce(throwPosition.transform.forward * throwPower, ForceMode.Impulse);
                         SoundManager.seAudioSource.PlayOneShot(throwSound);
