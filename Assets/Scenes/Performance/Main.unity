@@ -179,6 +179,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4365432414163390830, guid: 72b73ffa4c483954ca351702fa8d45bf,
+        type: 3}
+      propertyPath: gameUI
+      value: 
+      objectReference: {fileID: 1295895640}
+    - target: {fileID: 4365432414163390830, guid: 72b73ffa4c483954ca351702fa8d45bf,
+        type: 3}
+      propertyPath: createItemUI
+      value: 
+      objectReference: {fileID: 1255409784}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72b73ffa4c483954ca351702fa8d45bf, type: 3}
 --- !u!1 &149939577
@@ -1742,7 +1752,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1658691821}
+      objectReference: {fileID: 1203262918}
     - target: {fileID: 2549253386386465397, guid: d0043d21db4524449afd4956476ffc19,
         type: 3}
       propertyPath: gameUI
@@ -3996,7 +4006,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983735503}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

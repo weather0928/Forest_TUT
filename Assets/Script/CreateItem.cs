@@ -103,7 +103,7 @@ public class CreateItem : MonoBehaviour
         this.GetComponent<CanvasGroup>().interactable = true;
         //player.GetComponent<Renderer>().material.color = origColor;
         slider.SetActive(false);
-        PlayerMove.moveFlag = true;
+        FirstPersonView.moveFlag = true;
         this.gameObject.SetActive(false);
         cameraControllor.SetActive(false);
         normalCamera.SetActive(true);
