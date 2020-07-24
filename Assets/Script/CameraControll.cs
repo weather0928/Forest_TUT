@@ -21,8 +21,9 @@ public class CameraControll : MonoBehaviour
         {
             if (PlayerMove.moveFlag == true)
             {
+                var angle = transform.eulerAngles;
                 //Cameraの角度にマウスからとった値を入れる
-                transform.eulerAngles -= new Vector3(Input.GetAxis("Mouse Y") * rotate_speed, 0, 0);
+                angle -= new Vector3(Input.GetAxis("Mouse Y") * rotate_speed, 0, 0);
 
                 //X軸の角度
                 float angleX = transform.eulerAngles.x;
