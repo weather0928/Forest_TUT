@@ -26,7 +26,7 @@ public class CameraControll : MonoBehaviour
                 angle -= new Vector3(Input.GetAxis("Mouse Y") * rotate_speed, 0, 0);
 
                 //X軸の角度
-                float angleX = transform.eulerAngles.x;
+                float angleX = angle.x;
                 //X軸の値を180度超えたら360引くことで制限しやすくする
                 if (angleX >= 180)
                 {
