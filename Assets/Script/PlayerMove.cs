@@ -125,17 +125,18 @@ public class PlayerMove : MonoBehaviour
                         key_A = false;
                     }
                 }
-
-                if(key_W == false && key_A == false && key_S == false && key_D == false)
-                {
-                    walkAudioSoure.Stop();
-                    playerAni.SetBool("Run", false);
-                }
                 
                 if (camera2Flag == false)
                 {
                     transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
+            }
+            else
+            {
+                key_W = false;
+                key_A = false;
+                key_S = false;
+                key_D = false;
             }
             
             if (Input.GetKeyDown(KeyCode.R) && CreateItem.craftFlag == false)
@@ -143,6 +144,12 @@ public class PlayerMove : MonoBehaviour
                 gameUI.SetActive(!gameUI.activeSelf);
                 createItemUI.SetActive(!createItemUI.activeSelf);
                 moveFlag = !moveFlag;
+            }
+
+            if (key_W == false && key_A == false && key_S == false && key_D == false)
+            {
+                walkAudioSoure.Stop();
+                playerAni.SetBool("Run", false);
             }
         }
     }
