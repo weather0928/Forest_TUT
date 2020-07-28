@@ -18,9 +18,8 @@ public class EnemyChaser : MonoBehaviour
 
     //ターゲット（プレイヤー）を追うために使う変数
     [SerializeField] GameObject target;
-    [System.NonSerialized]public static bool inArea;
+    [System.NonSerialized]public static bool chaseFlag;
     [SerializeField] float chaspeed = 0.05f;
-    [SerializeField] Color origColor;
     [System.NonSerialized]public static bool chaseSwitchFlag;
     [SerializeField]private float chaseStopTime;
     private float chaseSecond = 0f;
@@ -48,19 +47,19 @@ public class EnemyChaser : MonoBehaviour
     private bool staleFlag;
 
     [SerializeField] AudioSource walkAudioSourece;
+    [SerializeField] AudioSource enemySeAudioSource;
 
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
     void Start()
     {
-        inArea = false;
+        chaseFlag = false;
         chaseSwitchFlag = false;
         staleFlag = false;
         soundHeardFlag = false;
         inPursuitFlag = false;
         gameOverFlag = false;
-        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
         GotoNextPoint();
@@ -84,11 +83,10 @@ public class EnemyChaser : MonoBehaviour
                 SceneManager.LoadScene("GameOver");
             }
 
-            if (inArea == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
+            if (chaseFlag == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
             {
                 agent.destination = SoundJudge.soundPoint;
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-                //Debug.Log(inArea);
                 if (soundHeardFlag == true)
                 {
                     audioSource.PlayOneShot(soundHeardVoice);
@@ -102,32 +100,28 @@ public class EnemyChaser : MonoBehaviour
                     {
                         SoundJudge.soundJudge = false;
                         soundSecond = 0f;
-                        //GetComponent<Renderer>().material.color = origColor;
                         audioSource.PlayOneShot(blameVoice);
                         GotoNextPoint();
                     }
                 }
             }
 
-            if (inArea == true && chaseSwitchFlag == false) //プレイヤーがEnemyCamera内にいるとき
+            if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
                 obstacleJudgFlag = ObstacleJudg();
                 if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
                     audioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
-                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                     inPursuitFlag = true;
                 }
                 else if (obstacleJudgFlag == false && inPursuitFlag == true)
                 {
                     EneChasing();
-                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                 }
                 else if (obstacleJudgFlag == true)
                 {
                     chaseSecond += Time.deltaTime;
-                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
                     inPursuitFlag = false;
                     if (chaseSecond >= chaseStopTime)
                     {
@@ -136,10 +130,9 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
             }
-            else if (inArea == true && chaseSwitchFlag == true)
+            else if (chaseFlag == true && chaseSwitchFlag == true)
             {
-                inArea = false;
-                //GetComponent<Renderer>().material.color = origColor;
+                chaseFlag = false;
                 GotoNextPoint();
                 chaseSwitchFlag = false;
             }
@@ -168,7 +161,6 @@ public class EnemyChaser : MonoBehaviour
             Destroy(other.gameObject);
             SoundJudge.soundFlag = false;
             SoundJudge.soundJudge = false;
-            GetComponent<Renderer>().material.color = origColor;
             GotoNextPoint();
         }
         if(other.gameObject.tag == "StaleItem")
@@ -202,7 +194,7 @@ public class EnemyChaser : MonoBehaviour
     bool ObstacleJudg() //プレイヤーと商人の間にオブジェクトがあるかを判断する
     {
         bool flg;
-        flg = Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up, 9);
+        flg = Physics.Linecast(transform.position + Vector3.up, target.transform.position, 9);
         return flg;
     }
 }
