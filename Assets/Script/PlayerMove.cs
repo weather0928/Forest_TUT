@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
     Rigidbody player_rb;
 
     Vector3 lastPosition;
+    Quaternion lastQuaternion;
 
     // Start is called before the first frame update
     void Start()
@@ -115,7 +116,7 @@ public class PlayerMove : MonoBehaviour
                 
                 if (camera2Flag == false)
                 {
-                    transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
+                    this.transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
             }
             else
@@ -137,23 +138,12 @@ public class PlayerMove : MonoBehaviour
                 && walkAudioSoure.isPlaying == false)
             {
                 walkAudioSoure.Play();
+                playerAni.SetBool("Run", true);
             }
             else if (key_W == false && key_A == false && key_S == false && key_D == false)
             {
                 walkAudioSoure.Stop();
                 playerAni.SetBool("Run", false);
-            }
-
-            Vector3 diff = this.transform.position - lastPosition;
-            lastPosition = transform.position;
-
-            if(diff.magnitude > 0.01f)
-            {
-                playerModel.transform.rotation = Quaternion.LookRotation(diff);
-            }
-            else
-            {
-                //戻るときの処理を書く
             }
         }
     }
@@ -165,7 +155,6 @@ public class PlayerMove : MonoBehaviour
         {
             if (key_W == true)
             {
-                playerAni.SetBool("Run", true);
                 if (key_A == true || key_D == true)
                 {
                     if (key_A == true)
@@ -220,5 +209,13 @@ public class PlayerMove : MonoBehaviour
         }
 
         player_rb.velocity = new Vector3(direction.x, player_rb.velocity.y, direction.z);
+        if(direction.magnitude > 0)
+        {
+            playerModel.transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else if(direction.magnitude == 0)
+        {
+            playerModel.transform.rotation = this.transform.rotation;
+        }
     }
 }
