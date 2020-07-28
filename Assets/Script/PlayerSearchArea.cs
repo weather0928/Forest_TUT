@@ -14,10 +14,10 @@ public class PlayerSearchArea : MonoBehaviour
         {
             EnemyChaser.inArea = true;
         }
-        else
+        /*else
         {
             EnemyChaser.chaseSwitchFlag = true;
-        }
+        }*/
     }
 
     /*void OnTriggerStay(Collider other) //ターゲット（プレイヤー）索敵処理

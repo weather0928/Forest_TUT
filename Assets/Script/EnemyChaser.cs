@@ -26,6 +26,8 @@ public class EnemyChaser : MonoBehaviour
     private float chaseSecond = 0f;
     private bool inPursuitFlag;
 
+    bool obstacleJudgFlag;
+
     //商人から音を出すために使うもの
     AudioSource audioSource;
 
@@ -100,36 +102,32 @@ public class EnemyChaser : MonoBehaviour
                     {
                         SoundJudge.soundJudge = false;
                         soundSecond = 0f;
-                        GetComponent<Renderer>().material.color = origColor;
+                        //GetComponent<Renderer>().material.color = origColor;
                         audioSource.PlayOneShot(blameVoice);
                         GotoNextPoint();
                     }
                 }
             }
 
-            if (inArea == true && target.activeInHierarchy == true && chaseSwitchFlag == false) //エリア内にいて、かつ「生存」状態の時
+            if (inArea == true && chaseSwitchFlag == false) //プレイヤーがEnemyCamera内にいるとき
             {
-                if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up, 9) == false && inPursuitFlag == false)
+                obstacleJudgFlag = ObstacleJudg();
+                if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
-                    
-                    agent.destination = target.transform.position;
                     audioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
-                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                    chaseSecond = 0f;
+                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                     inPursuitFlag = true;
                 }
-                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up,9) == false && inPursuitFlag == true)
+                else if (obstacleJudgFlag == false && inPursuitFlag == true)
                 {
-                    agent.destination = target.transform.position;
                     EneChasing();
-                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
-                    chaseSecond = 0f;
+                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 65f / 255f, 26f / 255f, 255f / 255f);
                 }
-                else if (Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up,9) == true)
+                else if (obstacleJudgFlag == true)
                 {
                     chaseSecond += Time.deltaTime;
-                    GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                    //GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
                     inPursuitFlag = false;
                     if (chaseSecond >= chaseStopTime)
                     {
@@ -141,7 +139,7 @@ public class EnemyChaser : MonoBehaviour
             else if (inArea == true && chaseSwitchFlag == true)
             {
                 inArea = false;
-                GetComponent<Renderer>().material.color = origColor;
+                //GetComponent<Renderer>().material.color = origColor;
                 GotoNextPoint();
                 chaseSwitchFlag = false;
             }
@@ -195,7 +193,16 @@ public class EnemyChaser : MonoBehaviour
 
     public void EneChasing() //ターゲット（プレイヤー）を追う処理
     {
+        agent.destination = target.transform.position;
         transform.position += transform.forward * chaspeed;
         walkAudioSourece.pitch = 1.5f;
+        chaseSecond = 0f;
+    }
+
+    bool ObstacleJudg() //プレイヤーと商人の間にオブジェクトがあるかを判断する
+    {
+        bool flg;
+        flg = Physics.Linecast(transform.position + Vector3.up, target.transform.position + Vector3.up, 9);
+        return flg;
     }
 }
