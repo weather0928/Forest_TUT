@@ -12,7 +12,7 @@ public class PlayerSearchCamera : MonoBehaviour
         if(inArea == true)
         {
             bool obstacleJudgFlag = ObstacleJudg();
-            if(obstacleJudgFlag == true)
+            if(obstacleJudgFlag == false)
             {
                 EnemyChaser.chaseFlag = true;
             }

@@ -27,9 +27,6 @@ public class EnemyChaser : MonoBehaviour
 
     bool obstacleJudgFlag;
 
-    //商人から音を出すために使うもの
-    AudioSource audioSource;
-
     //音が鳴った時に使う変数
     [SerializeField]AudioClip soundHeardVoice;
     [System.NonSerialized] public static bool soundHeardFlag;
@@ -89,7 +86,7 @@ public class EnemyChaser : MonoBehaviour
                 GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
                 if (soundHeardFlag == true)
                 {
-                    audioSource.PlayOneShot(soundHeardVoice);
+                    enemySeAudioSource.PlayOneShot(soundHeardVoice);
                     soundHeardFlag = false;
                 }
 
@@ -100,18 +97,19 @@ public class EnemyChaser : MonoBehaviour
                     {
                         SoundJudge.soundJudge = false;
                         soundSecond = 0f;
-                        audioSource.PlayOneShot(blameVoice);
+                        enemySeAudioSource.PlayOneShot(blameVoice);
                         GotoNextPoint();
                     }
                 }
             }
+            Debug.Log(chaseFlag);
 
             if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
                 obstacleJudgFlag = ObstacleJudg();
                 if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
-                    audioSource.PlayOneShot(foundPlayerVoice);
+                    enemySeAudioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
                     inPursuitFlag = true;
                 }
