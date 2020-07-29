@@ -46,6 +46,9 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] AudioSource walkAudioSourece;
     [SerializeField] AudioSource enemySeAudioSource;
 
+    [SerializeField] LayerMask objectLayer;
+    [SerializeField] Transform enemyCamera;
+
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
@@ -102,20 +105,21 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
             }
-
             if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
-                if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == false && inPursuitFlag == false)
+                obstacleJudgFlag = ObstacleJudg();
+                Debug.DrawLine(enemyCamera.position,target.transform.position + (Vector3.up * 0.1f));
+                if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
                     enemySeAudioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
                     inPursuitFlag = true;
                 }
-                else if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == false && inPursuitFlag == true)
+                else if (obstacleJudgFlag == false && inPursuitFlag == true)
                 {
                     EneChasing();
                 }
-                else if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == true)
+                else if (obstacleJudgFlag == true)
                 {
                     chaseSecond += Time.deltaTime;
                     inPursuitFlag = false;
@@ -125,8 +129,6 @@ public class EnemyChaser : MonoBehaviour
                         chaseSecond = 0f;
                     }
                 }
-                Debug.Log(Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2));
-                Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f),Color.blue);
             }
             else if (chaseFlag == true && chaseSwitchFlag == true)
             {
@@ -134,7 +136,6 @@ public class EnemyChaser : MonoBehaviour
                 GotoNextPoint();
                 chaseSwitchFlag = false;
             }
-            Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f));
             if (staleFlag == true)
             {
                 staleSecond += Time.deltaTime;
@@ -187,5 +188,13 @@ public class EnemyChaser : MonoBehaviour
         transform.position += transform.forward * chaspeed;
         walkAudioSourece.pitch = 1.5f;
         chaseSecond = 0f;
+    }
+
+    bool ObstacleJudg()
+    {
+        bool flg;
+        flg = Physics.Linecast(enemyCamera.position, target.transform.position + (Vector3.up * 0.1f), objectLayer);
+        Debug.Log(flg);
+        return flg;
     }
 }
