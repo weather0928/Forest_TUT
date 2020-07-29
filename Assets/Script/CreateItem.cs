@@ -20,8 +20,6 @@ public class CreateItem : MonoBehaviour
     [System.NonSerialized] public static bool craftFlag;
     [System.NonSerialized] public static bool createStartFlag;
     [SerializeField] GameObject gameUI;
-    [SerializeField] GameObject cameraControllor;
-    [SerializeField] GameObject normalCamera;
     [SerializeField] Animator playerAni;
 
     private void Start()
@@ -52,8 +50,6 @@ public class CreateItem : MonoBehaviour
                         slider.GetComponent<Slider>().maxValue = stopTime;
                     }
                     SoundManager.seAudioSource.PlayOneShot(createSound);
-                    cameraControllor.SetActive(true);
-                    normalCamera.SetActive(false);
                     createStartFlag = false;
                     playerAni.SetBool("Create", true);
                 }
@@ -105,8 +101,6 @@ public class CreateItem : MonoBehaviour
         slider.SetActive(false);
         PlayerMove.moveFlag = true;
         this.gameObject.SetActive(false);
-        cameraControllor.SetActive(false);
-        normalCamera.SetActive(true);
         gameUI.SetActive(true);
         playerAni.SetBool("Create", false);
     }
