@@ -19,7 +19,7 @@ public class CameraControll : MonoBehaviour
         }
         else
         {
-            if (PlayerMove.moveFlag == true)
+            if (PlayerMove.moveFlag == true && Input.GetMouseButton(1))
             {
                 var angle = transform.eulerAngles;
                 //Cameraの角度にマウスからとった値を入れる

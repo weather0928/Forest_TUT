@@ -102,11 +102,12 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(chaseFlag);
 
             if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
                 obstacleJudgFlag = ObstacleJudg();
+                Debug.Log(obstacleJudgFlag);
+                Debug.DrawLine(transform.position + Vector3.up * 3, target.transform.position + (Vector3.up * 0.1f), Color.red);
                 if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
                     enemySeAudioSource.PlayOneShot(foundPlayerVoice);
@@ -192,7 +193,7 @@ public class EnemyChaser : MonoBehaviour
     bool ObstacleJudg() //プレイヤーと商人の間にオブジェクトがあるかを判断する
     {
         bool flg;
-        flg = Physics.Linecast(transform.position + Vector3.up, target.transform.position, 9);
+        flg = Physics.Linecast(transform.position + Vector3.up * 3, target.transform.position + (Vector3.up * 0.1f));
         return flg;
     }
 }

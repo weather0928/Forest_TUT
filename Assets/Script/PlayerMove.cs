@@ -114,7 +114,7 @@ public class PlayerMove : MonoBehaviour
                     }
                 }
                 
-                if (camera2Flag == false)
+                if (camera2Flag == false && Input.GetMouseButton(1))
                 {
                     this.transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
