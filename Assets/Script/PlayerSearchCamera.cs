@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerSearchCamera : MonoBehaviour
 {
-    [SerializeField] GameObject enemy;
+    [SerializeField] Transform enemyCamera;
+    [SerializeField] LayerMask layerMask;
     bool inArea = false;
 
     private void Update()
     {
         if(inArea == true)
         {
-            bool obstacleJudgFlag = ObstacleJudg();
-            if(obstacleJudgFlag == false)
+            if(Physics.Linecast(transform.position + (Vector3.up * 0.1f), 
+                enemyCamera.transform.position,layerMask) == false)
             {
                 EnemyChaser.chaseFlag = true;
             }
         }
+        inArea = false;
     }
 
     void OnWillRenderObject()
@@ -25,12 +27,5 @@ public class PlayerSearchCamera : MonoBehaviour
         {
             inArea = true;
         }
-    }
-
-    bool ObstacleJudg()
-    {
-        bool flg;
-        flg = Physics.Linecast(transform.position, enemy.transform.position + Vector3.up, 9);
-        return flg;
     }
 }
