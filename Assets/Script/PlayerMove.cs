@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject createItemUI;
     [System.NonSerialized]public static bool moveFlag;
     [SerializeField] AudioSource walkAudioSoure;
+    [SerializeField] GameObject playerModel;
 
     [SerializeField] Animator playerAni;
 
@@ -27,6 +28,11 @@ public class PlayerMove : MonoBehaviour
 
     GameObject soundManeger;
 
+    Rigidbody player_rb;
+
+    Vector3 lastPosition;
+    Quaternion lastQuaternion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +42,7 @@ public class PlayerMove : MonoBehaviour
         key_D = false;
         moveFlag = true;
         createItemUI.SetActive(false);
+        player_rb = this.GetComponent<Rigidbody>();
         soundManeger = GameObject.Find("SoundManager");
     }
 
@@ -49,18 +56,11 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            
             if (moveFlag == true)
             {
-                
                 if (Input.GetKey(KeyCode.W))
                 {
                     key_W = true;
-                    if (walkAudioSoure.isPlaying == false)
-                    {
-                        walkAudioSoure.Play();
-                        //playerAni.SetBool("Run", true);
-                    }
                 }
                 else
                 {
@@ -70,10 +70,6 @@ public class PlayerMove : MonoBehaviour
                 if (Input.GetKey(KeyCode.S))
                 {
                     key_S = true;
-                    if (walkAudioSoure.isPlaying == false)
-                    {
-                        walkAudioSoure.Play();
-                    }
                 }
                 else
                 {
@@ -90,10 +86,6 @@ public class PlayerMove : MonoBehaviour
                     else
                     {
                         key_D = true;
-                        if (walkAudioSoure.isPlaying == false)
-                        {
-                            walkAudioSoure.Play();
-                        }
                     }
                 }
                 else
@@ -112,10 +104,6 @@ public class PlayerMove : MonoBehaviour
                     else
                     {
                         key_A = true;
-                        if (walkAudioSoure.isPlaying == false)
-                        {
-                            walkAudioSoure.Play();
-                        }
                     }
                 }
                 else
@@ -126,9 +114,9 @@ public class PlayerMove : MonoBehaviour
                     }
                 }
                 
-                if (camera2Flag == false)
+                if (camera2Flag == false && Input.GetMouseButton(1))
                 {
-                    transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
+                    this.transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotate_speed, 0);
                 }
             }
             else
@@ -146,7 +134,13 @@ public class PlayerMove : MonoBehaviour
                 moveFlag = !moveFlag;
             }
 
-            if (key_W == false && key_A == false && key_S == false && key_D == false)
+            if ((key_W == true || key_A == true || key_S == true || key_D == true)
+                && walkAudioSoure.isPlaying == false)
+            {
+                walkAudioSoure.Play();
+                playerAni.SetBool("Run", true);
+            }
+            else if (key_W == false && key_A == false && key_S == false && key_D == false)
             {
                 walkAudioSoure.Stop();
                 playerAni.SetBool("Run", false);
@@ -157,12 +151,10 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 direction = new Vector3();
-        
-        if(key_W == true || key_S == true)
+        if (key_W == true || key_S == true)
         {
             if (key_W == true)
             {
-                playerAni.SetBool("Run", true);
                 if (key_A == true || key_D == true)
                 {
                     if (key_A == true)
@@ -215,9 +207,15 @@ public class PlayerMove : MonoBehaviour
                 direction += transform.right * walkSpeed;
             }
         }
-        
 
-        direction.y = Physics.gravity.y; 
-        this.GetComponent<Rigidbody>().velocity = direction;
+        player_rb.velocity = new Vector3(direction.x, player_rb.velocity.y, direction.z);
+        if(direction.magnitude > 0)
+        {
+            playerModel.transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else if(direction.magnitude == 0)
+        {
+            playerModel.transform.rotation = this.transform.rotation;
+        }
     }
 }

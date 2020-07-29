@@ -37,10 +37,10 @@ public class BirdSearchArea : MonoBehaviour
             playerExitFlag = false;
             second = 0f;
             GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
-            if (EnemyChaser.inArea == false)
+            /*if (EnemyChaser.inArea == false)
             {
                 SoundJudge.soundPoint = transform.position;
-            }
+            }*/
             
         }
     }

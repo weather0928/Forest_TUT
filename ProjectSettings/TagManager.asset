@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - StaleItem
   - LadderSetOK
+  - EnemyCamera
   layers:
   - Default
   - TransparentFX
