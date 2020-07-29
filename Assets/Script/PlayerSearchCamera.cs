@@ -17,6 +17,7 @@ public class PlayerSearchCamera : MonoBehaviour
                 EnemyChaser.chaseFlag = true;
             }
         }
+        inArea = false;
     }
 
     void OnWillRenderObject()

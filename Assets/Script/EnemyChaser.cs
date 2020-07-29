@@ -25,7 +25,7 @@ public class EnemyChaser : MonoBehaviour
     private float chaseSecond = 0f;
     private bool inPursuitFlag;
 
-    bool obstacleJudgFlag;
+    bool obstacleJudgFlag = false;
 
     //音が鳴った時に使う変数
     [SerializeField]AudioClip soundHeardVoice;
@@ -105,20 +105,17 @@ public class EnemyChaser : MonoBehaviour
 
             if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
-                obstacleJudgFlag = ObstacleJudg();
-                Debug.Log(obstacleJudgFlag);
-                Debug.DrawLine(transform.position + Vector3.up * 3, target.transform.position + (Vector3.up * 0.1f), Color.red);
-                if (obstacleJudgFlag == false && inPursuitFlag == false)
+                if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == false && inPursuitFlag == false)
                 {
                     enemySeAudioSource.PlayOneShot(foundPlayerVoice);
                     EneChasing();
                     inPursuitFlag = true;
                 }
-                else if (obstacleJudgFlag == false && inPursuitFlag == true)
+                else if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == false && inPursuitFlag == true)
                 {
                     EneChasing();
                 }
-                else if (obstacleJudgFlag == true)
+                else if (Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2) == true)
                 {
                     chaseSecond += Time.deltaTime;
                     inPursuitFlag = false;
@@ -128,6 +125,8 @@ public class EnemyChaser : MonoBehaviour
                         chaseSecond = 0f;
                     }
                 }
+                Debug.Log(Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2));
+                Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f));
             }
             else if (chaseFlag == true && chaseSwitchFlag == true)
             {
@@ -135,8 +134,8 @@ public class EnemyChaser : MonoBehaviour
                 GotoNextPoint();
                 chaseSwitchFlag = false;
             }
-
-            if(staleFlag == true)
+            Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f));
+            if (staleFlag == true)
             {
                 staleSecond += Time.deltaTime;
                 if(staleSecond >= staleStopTime)
@@ -188,12 +187,5 @@ public class EnemyChaser : MonoBehaviour
         transform.position += transform.forward * chaspeed;
         walkAudioSourece.pitch = 1.5f;
         chaseSecond = 0f;
-    }
-
-    bool ObstacleJudg() //プレイヤーと商人の間にオブジェクトがあるかを判断する
-    {
-        bool flg;
-        flg = Physics.Linecast(transform.position + Vector3.up * 3, target.transform.position + (Vector3.up * 0.1f));
-        return flg;
     }
 }
