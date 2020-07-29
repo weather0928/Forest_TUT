@@ -126,7 +126,7 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
                 Debug.Log(Physics.Linecast(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f), 2));
-                Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f));
+                Debug.DrawLine(this.transform.position + Vector3.up * 2, target.transform.position + (Vector3.up * 0.1f),Color.blue);
             }
             else if (chaseFlag == true && chaseSwitchFlag == true)
             {
