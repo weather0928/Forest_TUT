@@ -25,7 +25,7 @@ public class EnemyChaser : MonoBehaviour
     private float chaseSecond = 0f;
     private bool inPursuitFlag;
 
-    bool obstacleJudgFlag = false;
+    [System.NonSerialized]public static bool obstacleJudgFlag;
 
     //音が鳴った時に使う変数
     [SerializeField]AudioClip soundHeardVoice;
@@ -49,6 +49,8 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] LayerMask objectLayer;
     [SerializeField] Transform enemyCamera;
 
+    [SerializeField] Animator enemyAni;
+
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
@@ -62,6 +64,7 @@ public class EnemyChaser : MonoBehaviour
         gameOverFlag = false;
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
+        obstacleJudgFlag = false;
         GotoNextPoint();
     }
 
@@ -86,7 +89,7 @@ public class EnemyChaser : MonoBehaviour
             if (chaseFlag == false && SoundJudge.soundJudge == true) //商人の範囲内で音がなった時
             {
                 agent.destination = SoundJudge.soundPoint;
-                GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
+                //GetComponent<Renderer>().material.color = new Color(255f / 255f, 255f / 255f, 0f / 255f, 255f / 255f);
                 if (soundHeardFlag == true)
                 {
                     enemySeAudioSource.PlayOneShot(soundHeardVoice);
@@ -180,6 +183,7 @@ public class EnemyChaser : MonoBehaviour
         walkAudioSourece.Play();
         agent.destination = points[destPoint].position;
         destPoint = (destPoint + 1) % points.Length;
+        //enemyAni.SetBool("Run", true);
     }
 
     public void EneChasing() //ターゲット（プレイヤー）を追う処理
