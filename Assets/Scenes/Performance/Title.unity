@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchSound: {fileID: 8300000, guid: 4cea7c015e0e2da4bb110c2862cd08c8, type: 3}
+  startSceneName: Area1
 --- !u!1 &346821933
 GameObject:
   m_ObjectHideFlags: 0

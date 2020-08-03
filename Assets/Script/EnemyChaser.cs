@@ -54,6 +54,8 @@ public class EnemyChaser : MonoBehaviour
     //ゲームオーバー画面に行くためのもの
     private bool gameOverFlag;
 
+    float time = 0.0f;
+
     void Start()
     {
         chaseFlag = false;
@@ -108,36 +110,40 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
             }
-            if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
+            time += Time.deltaTime;
+            if(time > 5)
             {
-                obstacleJudgFlag = ObstacleJudg();
-                Debug.DrawLine(enemyCamera.position,target.transform.position + (Vector3.up * 0.1f));
-                if (obstacleJudgFlag == false && inPursuitFlag == false)
+                if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
                 {
-                    enemySeAudioSource.PlayOneShot(foundPlayerVoice);
-                    EneChasing();
-                    inPursuitFlag = true;
-                }
-                else if (obstacleJudgFlag == false && inPursuitFlag == true)
-                {
-                    EneChasing();
-                }
-                else if (obstacleJudgFlag == true)
-                {
-                    chaseSecond += Time.deltaTime;
-                    inPursuitFlag = false;
-                    if (chaseSecond >= chaseStopTime)
+                    obstacleJudgFlag = ObstacleJudg();
+                    Debug.DrawLine(enemyCamera.position, target.transform.position + (Vector3.up * 0.1f));
+                    if (obstacleJudgFlag == false && inPursuitFlag == false)
                     {
-                        chaseSwitchFlag = true;
-                        chaseSecond = 0f;
+                        enemySeAudioSource.PlayOneShot(foundPlayerVoice);
+                        EneChasing();
+                        inPursuitFlag = true;
+                    }
+                    else if (obstacleJudgFlag == false && inPursuitFlag == true)
+                    {
+                        EneChasing();
+                    }
+                    else if (obstacleJudgFlag == true)
+                    {
+                        chaseSecond += Time.deltaTime;
+                        inPursuitFlag = false;
+                        if (chaseSecond >= chaseStopTime)
+                        {
+                            chaseSwitchFlag = true;
+                            chaseSecond = 0f;
+                        }
                     }
                 }
-            }
-            else if (chaseFlag == true && chaseSwitchFlag == true)
-            {
-                chaseFlag = false;
-                GotoNextPoint();
-                chaseSwitchFlag = false;
+                else if (chaseFlag == true && chaseSwitchFlag == true)
+                {
+                    chaseFlag = false;
+                    GotoNextPoint();
+                    chaseSwitchFlag = false;
+                }
             }
             if (staleFlag == true)
             {
