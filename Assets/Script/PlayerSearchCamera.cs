@@ -6,16 +6,26 @@ public class PlayerSearchCamera : MonoBehaviour
 {
     [SerializeField] Transform enemyCamera;
     [SerializeField] LayerMask layerMask;
-    bool inArea = false;
+    bool inArea;
+    float time;
+
+    private void Start()
+    {
+        inArea = false;
+    }
 
     private void Update()
     {
-        if(inArea == true)
+        time += Time.deltaTime;
+        if(time > 5)
         {
-            if(Physics.Linecast(transform.position + (Vector3.up * 0.1f), 
-                enemyCamera.transform.position,layerMask) == false)
+            if (inArea == true)
             {
-                EnemyChaser.chaseFlag = true;
+                if (Physics.Linecast(transform.position + (Vector3.up * 0.1f),
+                    enemyCamera.transform.position, layerMask) == false)
+                {
+                    EnemyChaser.chaseFlag = true;
+                }
             }
         }
         inArea = false;
