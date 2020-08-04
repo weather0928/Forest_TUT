@@ -11,7 +11,7 @@ public class SoundItem : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         audioSource.Play();
         SoundJudge.soundFlag = true;

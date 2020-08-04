@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchSound: {fileID: 8300000, guid: 4cea7c015e0e2da4bb110c2862cd08c8, type: 3}
+  startSceneName: Area1
 --- !u!1 &346821933
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +640,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 903614f1f7f701040ac659adb033e2fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4eb525c5d9707694f85956114d9901a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -44,6 +44,6 @@ public class LadderCheck : MonoBehaviour
             ladderCheckFlag = false;
         }
 
-        Debug.Log(ladderCheckFlag);
+        //Debug.Log(ladderCheckFlag);
     }
 }

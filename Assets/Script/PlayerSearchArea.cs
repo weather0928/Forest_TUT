@@ -10,10 +10,9 @@ public class PlayerSearchArea : MonoBehaviour
     void OnTriggerStay(Collider other) //ターゲット（プレイヤー）索敵処理
     {
         if (other.gameObject.tag == "Player" 
-            && Physics.Linecast(Enemy.transform.position + Vector3.up, other.transform.position + Vector3.up) == false)
+            && Physics.Linecast(Enemy.transform.position + Vector3.up, other.transform.position + Vector3.up,2) == false)
         {
-            EnemyChaser.inArea = true;
-            Debug.Log("9");
+            EnemyChaser.chaseFlag = true;
         }
     }
 
@@ -22,7 +21,6 @@ public class PlayerSearchArea : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             EnemyChaser.chaseSwitchFlag = true;
-            Debug.Log("8");
         }
     }
 }

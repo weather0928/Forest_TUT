@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class PlaySceneTransition : MonoBehaviour
 {
     [SerializeField] AudioClip switchSound;
+    [SerializeField] string startSceneName;
 
     public void OnClick()
     {
         SoundManager.seAudioSource.PlayOneShot(switchSound);
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(startSceneName);
     }
 }
