@@ -234,6 +234,7 @@ MonoBehaviour:
   soundHeardVoice: {fileID: 8300000, guid: 1073358ebbd75d541b0b28cbf0953269, type: 3}
   soundStopTime: 5
   blameVoice: {fileID: 8300000, guid: 8f381f9e0eb28b24e91db76e22d9e9c6, type: 3}
+  walkAudioSourece: {fileID: 0}
 --- !u!195 &5375877103049028382
 NavMeshAgent:
   m_ObjectHideFlags: 0

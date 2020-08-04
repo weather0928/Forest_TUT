@@ -41,7 +41,7 @@ public class CameraControl2 : MonoBehaviour
 
         //Cameraの角度にマウスからとった値を入れる
         transform.eulerAngles += new Vector3(
-            Input.GetAxis("Mouse Y") * rotate_speed,
+            -Input.GetAxis("Mouse Y") * rotate_speed,
             Input.GetAxis("Mouse X") * rotate_speed
             , 0);
 

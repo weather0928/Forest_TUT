@@ -15,7 +15,6 @@ public class MterialItem : MonoBehaviour
         {
             itemManeger.numOfItem[itemDate] += getItemNumber;
             //SoundManager.seAudioSource.PlayOneShot(itemGetSound);
-            //Debug.Log(itemManeger.numOfItem[itemDate]);
             Destroy(this.gameObject);
         }
     }
