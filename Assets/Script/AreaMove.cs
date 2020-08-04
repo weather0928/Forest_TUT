@@ -6,9 +6,10 @@ public class AreaMove : MonoBehaviour
 {
 
     [SerializeField] Transform newAreaPoint;
-    [SerializeField] Transform oldAreaPoint;
     [SerializeField] GameObject player;
-    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject oldAreaEnemy;
+    [SerializeField] GameObject newAreaEnemy;
+    [SerializeField] bool tutorialArea;
 
     bool areaMoveFlag;
     bool enemyMoveFlag;
@@ -27,10 +28,11 @@ public class AreaMove : MonoBehaviour
         if(enemyMoveFlag == true)
         {
             time += Time.deltaTime;
-            Debug.Log(time);
             if (time >= enemyMoveTime)
             {
-                enemy.SetActive(true);
+                newAreaEnemy.GetComponent<Transform>().position = newAreaPoint.position;
+                newAreaEnemy.GetComponent<Transform>().rotation = newAreaPoint.rotation;
+                newAreaEnemy.SetActive(true);
                 time = 0;
                 enemyMoveFlag = false;
             }
@@ -42,6 +44,10 @@ public class AreaMove : MonoBehaviour
         if(collision.gameObject == player)
         {
             player.transform.position = newAreaPoint.position;
+            if(tutorialArea == false)
+            {
+                oldAreaEnemy.SetActive(false);
+            }
             enemyMoveFlag = true;
             time = 0;
         }
