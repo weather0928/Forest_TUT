@@ -10,6 +10,7 @@ public class PauseExit : MonoBehaviour
 
     public void OnClick()
     {
+        Cursor.visible = false;
         Time.timeScale = 1.0f;
         SoundManager.seAudioSource.PlayOneShot(switchSound);
         setCanvas.SetActive(true);

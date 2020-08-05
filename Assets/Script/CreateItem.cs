@@ -41,6 +41,7 @@ public class CreateItem : MonoBehaviour
                 if (createStartFlag == true)
                 {
                     slider.SetActive(true);
+                    Cursor.visible = false;
                     if (itemManeger.numOfItem[hammerItem] == 1)
                     {
                         slider.GetComponent<Slider>().maxValue = stopTime / 2;

@@ -14,14 +14,16 @@ public class Pause : MonoBehaviour
         {
             if(OperationExplanationUI.activeSelf == false)
             {
-                if (!pauseUI.activeSelf)
+                if (pauseUI.activeSelf == false)
                 {
+                    Cursor.visible = true;
                     pauseUI.SetActive(true);
                     SoundManager.seAudioSource.Pause();
                     Time.timeScale = 0f;
                 }
                 else
                 {
+                    Cursor.visible = false;
                     pauseUI.SetActive(false);
                     SoundManager.seAudioSource.UnPause();
                     Time.timeScale = 1f;

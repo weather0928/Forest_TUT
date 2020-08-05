@@ -129,6 +129,14 @@ public class PlayerMove : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.R) && CreateItem.craftFlag == false)
             {
+                if(Cursor.visible == false)
+                {
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.visible = false;
+                }
                 gameUI.SetActive(!gameUI.activeSelf);
                 createItemUI.SetActive(!createItemUI.activeSelf);
                 moveFlag = !moveFlag;
