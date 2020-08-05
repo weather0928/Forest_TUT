@@ -16,16 +16,12 @@ public class PlayerSearchCamera : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
-        if(time > 5)
+        if (inArea == true)
         {
-            if (inArea == true)
+            if (Physics.Linecast(transform.position + (Vector3.up * 0.1f),
+                enemyCamera.transform.position, layerMask) == false)
             {
-                if (Physics.Linecast(transform.position + (Vector3.up * 0.1f),
-                    enemyCamera.transform.position, layerMask) == false)
-                {
-                    EnemyChaser.chaseFlag = true;
-                }
+                EnemyChaser.chaseFlag = true;
             }
         }
         inArea = false;
