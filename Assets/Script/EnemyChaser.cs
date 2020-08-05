@@ -189,7 +189,7 @@ public class EnemyChaser : MonoBehaviour
         walkAudioSourece.Play();
         agent.destination = points[destPoint].position;
         destPoint = (destPoint + 1) % points.Length;
-        //enemyAni.SetBool("Run", true);
+        enemyAni.SetBool("Run", true);
     }
 
     public void EneChasing() //ターゲット（プレイヤー）を追う処理
