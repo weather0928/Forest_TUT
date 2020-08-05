@@ -15,7 +15,7 @@ public class AreaMove : MonoBehaviour
 
     bool areaMoveFlag;
     bool enemyMoveFlag;
-    float enemyMoveTime = 5.0f;
+    float enemyMoveTime = 2.0f;
     float time;
 
     // Start is called before the first frame update

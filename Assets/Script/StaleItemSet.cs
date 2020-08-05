@@ -17,8 +17,9 @@ public class StaleItemSet : MonoBehaviour
             {
                 if (itemManeger.numOfItem[setItemData] >= 1)
                 {
-                    Vector3 setPosition = player.transform.position + player.transform.forward * 1.0f;
-                    GameObject createStaleItem = Instantiate(setItem, setPosition, transform.rotation);
+                    Vector3 setPosition = player.transform.position + player.transform.forward * 0.3f;
+                    GameObject createStaleItem = Instantiate(setItem, setPosition,Quaternion.identity);
+                    createStaleItem.transform.eulerAngles = new Vector3(-90, 0, 0); 
                     itemManeger.numOfItem[setItemData] -= 1;
                 }
             }

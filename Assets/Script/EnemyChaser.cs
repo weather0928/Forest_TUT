@@ -110,40 +110,36 @@ public class EnemyChaser : MonoBehaviour
                     }
                 }
             }
-            time += Time.deltaTime;
-            if(time > 5)
+            if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
             {
-                if (chaseFlag == true && chaseSwitchFlag == false) //プレイヤーが商人に見つかった時
+                obstacleJudgFlag = ObstacleJudg();
+                Debug.DrawLine(enemyCamera.position, target.transform.position + (Vector3.up * 0.1f));
+                if (obstacleJudgFlag == false && inPursuitFlag == false)
                 {
-                    obstacleJudgFlag = ObstacleJudg();
-                    Debug.DrawLine(enemyCamera.position, target.transform.position + (Vector3.up * 0.1f));
-                    if (obstacleJudgFlag == false && inPursuitFlag == false)
+                    enemySeAudioSource.PlayOneShot(foundPlayerVoice);
+                    EneChasing();
+                    inPursuitFlag = true;
+                }
+                else if (obstacleJudgFlag == false && inPursuitFlag == true)
+                {
+                    EneChasing();
+                }
+                else if (obstacleJudgFlag == true)
+                {
+                    chaseSecond += Time.deltaTime;
+                    inPursuitFlag = false;
+                    if (chaseSecond >= chaseStopTime)
                     {
-                        enemySeAudioSource.PlayOneShot(foundPlayerVoice);
-                        EneChasing();
-                        inPursuitFlag = true;
-                    }
-                    else if (obstacleJudgFlag == false && inPursuitFlag == true)
-                    {
-                        EneChasing();
-                    }
-                    else if (obstacleJudgFlag == true)
-                    {
-                        chaseSecond += Time.deltaTime;
-                        inPursuitFlag = false;
-                        if (chaseSecond >= chaseStopTime)
-                        {
-                            chaseSwitchFlag = true;
-                            chaseSecond = 0f;
-                        }
+                        chaseSwitchFlag = true;
+                        chaseSecond = 0f;
                     }
                 }
-                else if (chaseFlag == true && chaseSwitchFlag == true)
-                {
-                    chaseFlag = false;
-                    GotoNextPoint();
-                    chaseSwitchFlag = false;
-                }
+            }
+            else if (chaseFlag == true && chaseSwitchFlag == true)
+            {
+                chaseFlag = false;
+                GotoNextPoint();
+                chaseSwitchFlag = false;
             }
             if (staleFlag == true)
             {
