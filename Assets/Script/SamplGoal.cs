@@ -20,6 +20,7 @@ public class SamplGoal : MonoBehaviour
     {
         if(gameClearFlag == true)
         {
+            Cursor.visible = true;
             SceneManager.LoadScene("GameClear");
         }
     }
