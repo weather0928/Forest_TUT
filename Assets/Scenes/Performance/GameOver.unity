@@ -754,6 +754,18 @@ PrefabInstance:
       propertyPath: seVolume
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4727803890505872472, guid: 3df166ed0058328459779e8c6fae8f32,
+        type: 3}
+      propertyPath: bgmMixerGroup
+      value: 
+      objectReference: {fileID: 243874277128699524, guid: ecbc80a755b0b1b43a9aa21411bbf871,
+        type: 2}
+    - target: {fileID: 4727803890505872472, guid: 3df166ed0058328459779e8c6fae8f32,
+        type: 3}
+      propertyPath: seMixerGroup
+      value: 
+      objectReference: {fileID: 243793043742694028, guid: ecbc80a755b0b1b43a9aa21411bbf871,
+        type: 2}
     - target: {fileID: 6695195273173803039, guid: 3df166ed0058328459779e8c6fae8f32,
         type: 3}
       propertyPath: m_LocalPosition.x

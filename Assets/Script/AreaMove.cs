@@ -12,6 +12,10 @@ public class AreaMove : MonoBehaviour
     [SerializeField] GameObject newAreaEnemy;
     [SerializeField] bool tutorialArea;
     [SerializeField] bool area1Flag;
+    [SerializeField] bool itemConditionFlag;
+    [SerializeField] Item moveConditionItemDate;
+    [SerializeField] ItemManeger itemManeger;
+    [SerializeField] GameObject nonHaveMoveItemUI;
 
     bool areaMoveFlag;
     bool enemyMoveFlag;
@@ -53,13 +57,43 @@ public class AreaMove : MonoBehaviour
     {
         if(collision.gameObject == player)
         {
-            player.transform.position = newAreaPoint.position;
-            if(tutorialArea == false)
+            if(itemConditionFlag == true)
             {
-                oldAreaEnemy.SetActive(false);
+                if (itemManeger.numOfItem[moveConditionItemDate] >= 1)
+                {
+                    MoveArea();
+                }
+                else
+                {
+                    nonHaveMoveItemUI.SetActive(true);
+                }
             }
-            enemyMoveFlag = true;
-            time = 0;
+            else
+            {
+                MoveArea();
+            }
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(itemConditionFlag == true)
+        {
+            if (collision.gameObject == player && nonHaveMoveItemUI.activeSelf == true)
+            {
+                nonHaveMoveItemUI.SetActive(false);
+            }
+        }
+    }
+
+    void MoveArea()
+    {
+        player.transform.position = newAreaPoint.position;
+        if (tutorialArea == false)
+        {
+            oldAreaEnemy.SetActive(false);
+        }
+        enemyMoveFlag = true;
+        time = 0;
     }
 }

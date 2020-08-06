@@ -10,6 +10,7 @@ public class PlaySceneTransition : MonoBehaviour
 
     public void OnClick()
     {
+        Cursor.visible = false;
         SoundManager.seAudioSource.PlayOneShot(switchSound);
         SceneManager.LoadScene(startSceneName);
     }

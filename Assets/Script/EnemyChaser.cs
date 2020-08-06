@@ -85,6 +85,7 @@ public class EnemyChaser : MonoBehaviour
 
             if (gameOverFlag == true) //ゲームオーバー処理
             {
+                Cursor.visible = true;
                 SceneManager.LoadScene("GameOver");
             }
 
