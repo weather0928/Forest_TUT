@@ -152,6 +152,7 @@ public class EnemyChaser : MonoBehaviour
                 }
             }
         }
+        Debug.Log(destPoint);
     }
         
 
@@ -160,6 +161,8 @@ public class EnemyChaser : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             gameOverFlag = true;
+            obstacleJudgFlag = false;
+            chaseFlag = false;
         }
         if(other.gameObject.tag == "SoundItem")
         {

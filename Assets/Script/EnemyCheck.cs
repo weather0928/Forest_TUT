@@ -13,7 +13,9 @@ public class EnemyCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        eyeColor = eyeUI.color;
+        eyeColor.a = 0.0f;
+        eyeUI.color = eyeColor;
     }
 
     // Update is called once per frame

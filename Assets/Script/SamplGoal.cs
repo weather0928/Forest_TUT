@@ -8,6 +8,7 @@ public class SamplGoal : MonoBehaviour
     [SerializeField] private Item goalItem;
     [SerializeField] private ItemManeger itemManeger;
     [SerializeField] int goalItemNumber;
+    [SerializeField] GameObject nonKeyItemText;
 
     private bool gameClearFlag;
 
@@ -32,6 +33,21 @@ public class SamplGoal : MonoBehaviour
             if (itemManeger.numOfItem[goalItem] >= goalItemNumber)
             {
                 gameClearFlag = true;
+            }
+            else
+            {
+                nonKeyItemText.SetActive(true);
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            if(nonKeyItemText.activeSelf == true)
+            {
+                nonKeyItemText.SetActive(false);
             }
         }
     }

@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         StartBGM(bgm);
+        Screen.SetResolution(1600, 900, false, 60);
     }
 
     private void StartBGM(AudioClip clip)
