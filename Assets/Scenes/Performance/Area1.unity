@@ -2687,6 +2687,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
         type: 3}
+      propertyPath: useItem.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
+        type: 3}
       propertyPath: testFlag
       value: 0
       objectReference: {fileID: 0}
@@ -2695,6 +2700,29 @@ PrefabInstance:
       propertyPath: testItem
       value: 
       objectReference: {fileID: 11400000, guid: 30f1b8258abf45046ba897ffe08e9a75,
+        type: 2}
+    - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
+        type: 3}
+      propertyPath: movieFlag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
+        type: 3}
+      propertyPath: useItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 30f1b8258abf45046ba897ffe08e9a75,
+        type: 2}
+    - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
+        type: 3}
+      propertyPath: useItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0974136e8ec49f740b819258b1ea7d25,
+        type: 2}
+    - target: {fileID: 5965110713642733169, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
+        type: 3}
+      propertyPath: useItem.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: dc522d715745c1440bf185ef5e390f54,
         type: 2}
     - target: {fileID: 5965110713642733174, guid: 9ed15ff71a3b91b4bbfda4ffa0c57f6a,
         type: 3}

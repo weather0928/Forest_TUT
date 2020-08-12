@@ -12,6 +12,8 @@ public class ItemManeger : MonoBehaviour
 
     [SerializeField] bool testFlag;
     [SerializeField] Item testItem;
+    [SerializeField] bool movieFlag;
+    [SerializeField] Item[] useItem;
 
 
     void Start()
@@ -24,6 +26,13 @@ public class ItemManeger : MonoBehaviour
         if(testFlag == true)
         {
             numOfItem[testItem] += 100;
+        }
+        if(movieFlag == true)
+        {
+            for(int i = 0;i < useItem.Length;i++)
+            {
+                numOfItem[useItem[i]] += 100;
+            }
         }
     }
 
